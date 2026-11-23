@@ -11,21 +11,21 @@ import javafx.stage.Stage;
 
 public class AddNewController {
     @FXML
-    TextField txtTitle;
+    private TextField txtTitle;
     @FXML
-    TextField txtArtist;
+    private TextField txtArtist;
     @FXML
-    ChoiceBox<String> cboxGenre;
+    private ChoiceBox<String> cboxGenre;
     @FXML
-    TextField txtTime;
+    private TextField txtTime;
     @FXML
-    TextField txtFile;
+    private TextField txtFile;
     @FXML
-    Button btnFile;
+    private Button btnFile;
     @FXML
-    Button btnCancel;
+    private Button btnCancel;
     @FXML
-    Button btnSave;
+    private Button btnSave;
 
     @FXML
     public void initialize(){
@@ -36,5 +36,13 @@ public class AddNewController {
     public void handleClickCancel(ActionEvent actionEvent){
         Stage stage = (Stage) btnCancel.getScene().getWindow();
         stage.close();
+    }
+    @FXML
+    public void handleClickSave(ActionEvent actionEvent){
+        String title = txtTitle.getText();
+        String artist = txtArtist.getText();
+        String time = txtTime.getText();
+        String genre = cboxGenre.getValue();
+        System.out.println("The title of the song is " + title + "\nThe artist is " + artist + "\nThe song is " + time + " minutes long" + "\nThe genre is " + genre);
     }
 }
