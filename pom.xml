@@ -38,6 +38,14 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Source: https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>13.6.2.jre11</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -60,7 +68,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.temufy/com.example.temufy.HelloApplication</mainClass>
+                            <mainClass>com.example.temufy/com.example.temufy.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>
