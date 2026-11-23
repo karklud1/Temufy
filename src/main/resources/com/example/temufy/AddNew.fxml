@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temufy.GUI.AddNewController">
+<AnchorPane prefHeight="400.0" prefWidth="520.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temufy.GUI.AddNewController">
    <children>
       <VBox layoutX="14.0" layoutY="100.0" prefHeight="200.0" prefWidth="79.0">
          <children>
-            <Label prefHeight="30.0" text="Title">
+            <Label prefHeight="30.0" text="Title" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
@@ -23,7 +22,7 @@
                   <Font name="Century" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="30.0" text="Artist">
+            <Label prefHeight="30.0" text="Artist" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
@@ -31,7 +30,7 @@
                   <Font name="Century" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="40.0" text="Genre">
+            <Label prefHeight="40.0" text="Genre" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
@@ -39,7 +38,7 @@
                   <Font name="Century" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="30.0" text="Time">
+            <Label prefHeight="30.0" text="Time" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
@@ -47,7 +46,7 @@
                   <Font name="Century" size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="30.0" text="File">
+            <Label prefHeight="30.0" text="File" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
@@ -57,7 +56,7 @@
             </Label>
          </children>
       </VBox>
-      <Label layoutX="14.0" layoutY="28.0" text="New Song">
+      <Label layoutX="14.0" layoutY="28.0" text="New Song" textFill="WHITE">
          <font>
             <Font name="Century Schoolbook" size="36.0" />
          </font>
