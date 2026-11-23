@@ -1,4 +1,4 @@
-package com.example.temufy;
+package com.example.temufy.GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
