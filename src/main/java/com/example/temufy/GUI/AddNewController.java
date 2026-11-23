@@ -10,6 +10,13 @@ import javafx.stage.Stage;
 
 
 public class AddNewController {
+    //Java variables
+    private String title;
+    private String artist;
+    private String time;
+    private String genre;
+
+    //FXML variables
     @FXML
     private TextField txtTitle;
     @FXML
@@ -39,10 +46,22 @@ public class AddNewController {
     }
     @FXML
     public void handleClickSave(ActionEvent actionEvent){
-        String title = txtTitle.getText();
-        String artist = txtArtist.getText();
-        String time = txtTime.getText();
-        String genre = cboxGenre.getValue();
+        title = txtTitle.getText();
+        artist = txtArtist.getText();
+        time = txtTime.getText();
+        genre = cboxGenre.getValue();
         System.out.println("The title of the song is " + title + "\nThe artist is " + artist + "\nThe song is " + time + " minutes long" + "\nThe genre is " + genre);
+    }
+    public String getTitle(){
+        return title;
+    }
+    public String getArtist(){
+        return artist;
+    }
+    public String getTime(){
+        return time;
+    }
+    public String getGenre(){
+        return genre;
     }
 }
