@@ -9,11 +9,7 @@
 <AnchorPane prefHeight="494.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temufy.GUI.TemufyController">
     <children>
         <TextField fx:id="txtMovieSearch" layoutX="27.0" layoutY="131.2" prefHeight="26.0" prefWidth="392.0" promptText="Search" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="131.0" />
-        <TextField fx:id="txtMovieCreateYear" layoutX="28.0" layoutY="56.0" prefHeight="26.0" prefWidth="191.0" promptText="Movie year" />
         <Button fx:id="btnCreate" layoutX="27.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleClickCreate" prefHeight="26.0" prefWidth="392.0" text="Create" />
-        <TextField fx:id="txtMovieCreateTitle" layoutX="28.0" layoutY="22.0" prefHeight="26.0" prefWidth="191.0" promptText="Movie title" />
-        <Button fx:id="btnUpdate" layoutX="227.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleClickUpdate" prefHeight="26.0" prefWidth="191.0" text="Update" />
-        <Button fx:id="btnDelete" layoutX="227.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleClickDelete" prefHeight="26.0" prefWidth="191.0" text="Delete" />
         <TableView fx:id="txtMovie" layoutX="30.0" layoutY="171.0" prefHeight="296.0" prefWidth="398.0">
             <columns>
                 <TableColumn fx:id="colTitle" prefWidth="98.4000244140625" text="Title" />
