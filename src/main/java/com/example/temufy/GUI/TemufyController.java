@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TemufyController {
-
     public void handleClickCreate(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("AddNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 520, 400);
@@ -20,6 +19,7 @@ public class TemufyController {
         stage.setTitle("Add Song");
         stage.setScene(scene);
         stage.show();
+
     }
 
 }

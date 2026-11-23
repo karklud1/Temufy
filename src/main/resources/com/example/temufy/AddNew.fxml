@@ -89,7 +89,7 @@
       <TextField fx:id="txtFile" layoutX="103.0" layoutY="267.0" minHeight="30.0" prefHeight="30.0" prefWidth="318.0" />
       <HBox layoutX="398.0" layoutY="359.0" prefHeight="26.0" prefWidth="112.0">
          <children>
-            <Button fx:id="btnCancel" mnemonicParsing="false" prefHeight="26.0" prefWidth="51.0" text="Cancel">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleClickCancel" prefHeight="26.0" prefWidth="51.0" text="Cancel">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
