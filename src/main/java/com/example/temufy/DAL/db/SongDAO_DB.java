@@ -26,18 +26,16 @@ public class SongDAO_DB implements ISongDataAccess {
         try (Connection conn = dbConnector.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            String sql = "SELECT * FROM Song";
-
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Song");
 
             while (rs.next()) {
                 int id = rs.getInt("Id");
                 String title = rs.getString("Title");
                 String artist = rs.getString("Artist");
                 String genre = rs.getString("Genre");
-                int time = rs.getInt("Time");
+                double time = rs.getDouble("Time");
 
-                songs.add(new Song(id, title, artist, genre, time));
+                songs.add(new Song(title, artist, genre, time, id));
             }
         }
 
@@ -46,7 +44,7 @@ public class SongDAO_DB implements ISongDataAccess {
 
     @Override
     public Song createSong(Song song) throws Exception {
-        String sql = "INSERT INTO Song (Title,Artist,Genre,Time) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO Song (Title,Artist,Genre,[Time]) VALUES (?,?,?,?);";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -54,7 +52,7 @@ public class SongDAO_DB implements ISongDataAccess {
             stmt.setString(1, song.getTitle());
             stmt.setString(2, song.getArtist());
             stmt.setString(3, song.getGenre());
-            stmt.setInt(4, song.getTime());
+            stmt.setDouble(4, song.getTime());
 
             stmt.executeUpdate();
 
@@ -65,14 +63,13 @@ public class SongDAO_DB implements ISongDataAccess {
                 id = rs.getInt(1);
             }
 
-            return new Song(id, song.getTitle(), song.getArtist(), song.getGenre(), song.getTime());
+            return new Song(song.getTitle(), song.getArtist(), song.getGenre(), song.getTime(), id);
         }
     }
 
     @Override
     public void updateSong(Song song) throws Exception {
-
-        String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, Time = ? WHERE Id = ?";
+        String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, [Time] = ? WHERE Id = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -80,7 +77,7 @@ public class SongDAO_DB implements ISongDataAccess {
             stmt.setString(1, song.getTitle());
             stmt.setString(2, song.getArtist());
             stmt.setString(3, song.getGenre());
-            stmt.setInt(4, song.getTime());
+            stmt.setDouble(4, song.getTime());
             stmt.setInt(5, song.getId());
 
             stmt.executeUpdate();
@@ -89,7 +86,6 @@ public class SongDAO_DB implements ISongDataAccess {
 
     @Override
     public void deleteSong(Song song) throws Exception {
-
         String sql = "DELETE FROM Song WHERE Id = ?";
 
         try (Connection conn = dbConnector.getConnection();
