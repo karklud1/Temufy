@@ -1,12 +1,13 @@
 package com.example.temufy.DAL;
 
 import com.example.temufy.BE.Playlist;
-import com.example.temufy.BE.Song;
 import java.util.List;
 
 public interface IPlaylistDataAccess {
 
-    List<Song> getAllPlaylists() throws Exception;
+    List<Playlist> getAllPlaylists() throws Exception;
+
+    List<Playlist> getallPlaylists() throws Exception;
 
     Playlist createPlaylist(Playlist newPlaylist) throws Exception;
 

@@ -5,13 +5,15 @@ import java.util.List;
 public class Playlist {
 
     private String name;
-    private List<Song> numberOfSongs;
+    private int numberOfSongs;
     private double totalTime;
+    private int id;
 
-    Playlist(String name, List<Song> numberOfSongs, double totalTime){
+    public Playlist(String name, int numberOfSongs, double totalTime, int id){
         this.name = name;
         this.numberOfSongs = numberOfSongs;
         this.totalTime = totalTime;
+        this.id = id;
     }
 
     public String getName() {
@@ -20,7 +22,10 @@ public class Playlist {
     public double getTotalTime() {
         return totalTime;
     }
-    public List<Song> getNumberOfSongs() {
+    public int getNumberOfSongs() {
         return numberOfSongs;
+    }
+    public int getId(){
+        return id;
     }
 }

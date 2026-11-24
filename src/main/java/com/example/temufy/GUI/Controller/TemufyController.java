@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class TemufyController {
     public void handleClickCreate(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("AddNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 520, 400);
 
         Stage stage = new Stage();
