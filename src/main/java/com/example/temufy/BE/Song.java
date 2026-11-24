@@ -5,14 +5,14 @@ public class Song {
     private int id;
     private String title;
     private String artist;
-    private int year;
+    private String genre;
     private int time; // length in seconds
 
-    public Song(int id, String title, String artist, int year, int time) {
+    public Song(int id, String title, String artist, String genre, int time) {
         this.id = id;
         this.title = title;
         this.artist = artist;
-        this.year = year;
+        this.genre = genre;
         this.time = time;
     }
 
@@ -36,12 +36,12 @@ public class Song {
         this.artist = artist;
     }
 
-    public int getYear() {
-        return year;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public int getTime() {
@@ -59,7 +59,7 @@ public class Song {
 
     @Override
     public String toString() {
-        return id + ": " + title + " - " + artist + " (" + year + ") [" + getFormattedTime() + "]";
+        return id + ": " + title + " - " + artist + " (" + genre + ") [" + getFormattedTime() + "]";
     }
 
     @Override

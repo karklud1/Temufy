@@ -12,16 +12,12 @@ public class SongSearcher {
         for (Song song : searchBase) {
             if (compareToSongTitle(query, song)
                     || compareToSongArtist(query, song)
-                    || compareToSongYear(query, song)) {
+                    || compareToSongGenre(query, song)) {
                 searchResult.add(song);
             }
         }
 
         return searchResult;
-    }
-
-    private boolean compareToSongYear(String query, Song song) {
-        return Integer.toString(song.getYear()).contains(query);
     }
 
     private boolean compareToSongTitle(String query, Song song) {
@@ -30,6 +26,10 @@ public class SongSearcher {
 
     private boolean compareToSongArtist(String query, Song song) {
         return song.getArtist().toLowerCase().contains(query.toLowerCase());
+    }
+
+    private boolean compareToSongGenre(String query, Song song) {
+        return song.getGenre().toLowerCase().contains(query.toLowerCase());
     }
 
 }
