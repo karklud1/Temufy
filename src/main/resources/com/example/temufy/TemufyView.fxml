@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="494.0" prefWidth="453.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temufy.GUI.TemufyController">
+<AnchorPane prefHeight="494.0" prefWidth="453.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temufy.GUI.Controller.TemufyController">
     <children>
         <TextField fx:id="txtMovieSearch" layoutX="33.0" layoutY="129.0" prefHeight="26.0" prefWidth="392.0" promptText="Search" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="129.0" />
         <Button fx:id="btnCreate" layoutX="33.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleClickCreate" prefHeight="26.0" prefWidth="392.0" text="Create" />

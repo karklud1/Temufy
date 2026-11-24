@@ -1,4 +1,4 @@
 package com.example.temufy.BE;
 
-public class idkmayn {
+public class Playlist {
 }
