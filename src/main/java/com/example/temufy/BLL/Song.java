@@ -12,4 +12,17 @@ public class Song {
         this.genre = genre;
         this.time = time;
     }
+
+    public String getTitle(){
+        return title;
+    }
+    public String getArtist(){
+        return artist;
+    }
+    public String getTime(){
+        return time;
+    }
+    public String getGenre(){
+        return genre;
+    }
 }
