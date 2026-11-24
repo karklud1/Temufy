@@ -1,4 +1,102 @@
 package com.example.temufy.DAL.db;
 
-public class SongDAO_DB {
+import com.example.temufy.BE.Song;
+import com.example.temufy.DAL.ISongDataAccess;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SongDAO_DB implements ISongDataAccess {
+
+    private DBConnector dbConnector = new DBConnector();
+
+    public SongDAO_DB() throws IOException {
+    }
+
+    @Override
+    public List<Song> getAllSongs() throws Exception {
+
+        List<Song> songs = new ArrayList<>();
+
+        try (Connection conn = dbConnector.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            String sql = "SELECT * FROM Song";
+
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                int id = rs.getInt("Id");
+                String title = rs.getString("Title");
+                String artist = rs.getString("Artist");
+                int year = rs.getInt("Year");
+                int time = rs.getInt("Time");
+
+                songs.add(new Song(id, title, artist, year, time));
+            }
+        }
+
+        return songs;
+    }
+
+    @Override
+    public Song createSong(Song song) throws Exception {
+        String sql = "INSERT INTO Song (Title,Artist,Year,Time) VALUES (?,?,?,?);";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, song.getTitle());
+            stmt.setString(2, song.getArtist());
+            stmt.setInt(3, song.getYear());
+            stmt.setInt(4, song.getTime());
+
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            int id = 0;
+
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+
+            return new Song(id, song.getTitle(), song.getArtist(), song.getYear(), song.getTime());
+        }
+    }
+
+    @Override
+    public void updateSong(Song song) throws Exception {
+
+        String sql = "UPDATE Song SET Title = ?, Artist = ?, Year = ?, Time = ? WHERE Id = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, song.getTitle());
+            stmt.setString(2, song.getArtist());
+            stmt.setInt(3, song.getYear());
+            stmt.setInt(4, song.getTime());
+            stmt.setInt(5, song.getId());
+
+            stmt.executeUpdate();
+        }
+    }
+
+    @Override
+    public void deleteSong(Song song) throws Exception {
+
+        String sql = "DELETE FROM Song WHERE Id = ?";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, song.getId());
+            stmt.executeUpdate();
+        }
+    }
 }
