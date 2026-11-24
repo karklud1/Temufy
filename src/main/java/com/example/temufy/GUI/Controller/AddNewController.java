@@ -1,5 +1,5 @@
-package com.example.temufy.GUI;
-import com.example.temufy.BLL.Song;
+package com.example.temufy.GUI.Controller;
+import com.example.temufy.BE.Song;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
