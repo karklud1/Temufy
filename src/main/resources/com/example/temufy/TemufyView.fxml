@@ -1,27 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="494.0" prefWidth="453.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.temufy.GUI.TemufyController">
-    <children>
-        <TextField fx:id="txtMovieSearch" layoutX="27.0" layoutY="131.2" prefHeight="26.0" prefWidth="392.0" promptText="Search" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="131.0" />
-        <TextField fx:id="txtMovieCreateYear" layoutX="28.0" layoutY="56.0" prefHeight="26.0" prefWidth="191.0" promptText="Movie year" />
-        <Button fx:id="btnCreate" layoutX="27.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleClickCreate" prefHeight="26.0" prefWidth="392.0" text="Create" />
-        <TextField fx:id="txtMovieCreateTitle" layoutX="28.0" layoutY="22.0" prefHeight="26.0" prefWidth="191.0" promptText="Movie title" />
-        <Button fx:id="btnUpdate" layoutX="227.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleClickUpdate" prefHeight="26.0" prefWidth="191.0" text="Update" />
-        <Button fx:id="btnDelete" layoutX="227.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleClickDelete" prefHeight="26.0" prefWidth="191.0" text="Delete" />
-        <TableView fx:id="txtMovie" layoutX="30.0" layoutY="171.0" prefHeight="296.0" prefWidth="398.0">
-            <columns>
-                <TableColumn fx:id="colTitle" prefWidth="98.4000244140625" text="Title" />
-                <TableColumn fx:id="colYear" prefWidth="92.00003051757812" text="Year" />
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-        </TableView>
-    </children>
-</AnchorPane>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <center>
+        <VBox spacing="20" prefWidth="700" prefHeight="500">
+            <padding>
+                <Insets top="25" right="25" bottom="25" left="25"/>
+            </padding>
+
+            <Label text="New song"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+            <GridPane hgap="15" vgap="20">
+
+                <Label text="Title" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtTitle"
+                           promptText="Song title"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="0"/>
+
+                <Label text="Artist" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtArtist"
+                           promptText="Artist name"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+
+                <Label text="Category" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <ComboBox fx:id="cmbCategory"
+                          prefWidth="300"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="2"/>
+
+                <Label text="Time" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                <TextField fx:id="txtTime"
+                           promptText="3:41"
+                           prefWidth="120"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="3"/>
+
+                <Label text="File" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+
+                <HBox spacing="10"
+                      GridPane.columnIndex="1"
+                      GridPane.rowIndex="4">
+
+                    <TextField fx:id="txtFile"
+                               promptText="Choose song file..."
+                               prefWidth="400"/>
+
+                    <Button text="Choose..."
+                            onAction="#handleChooseFile"/>
+                </HBox>
+
+            </GridPane>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="10"
+              alignment="CENTER_RIGHT"
+              style="-fx-padding: 15;">
+
+            <Button text="Cancel"
+                    onAction="#handleCancel"/>
+
+            <Button text="Save"
+                    onAction="#handleSave"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
