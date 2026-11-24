@@ -1,5 +1,7 @@
 package com.example.temufy.GUI.Controller;
 import com.example.temufy.BE.Song;
+import com.mpatric.mp3agic.Mp3File;
+import javafx.stage.FileChooser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,11 +9,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.awt.*;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.spi.AudioFileReader;
+import java.io.File;
 
 
 public class AddNewController {
-
+    private File selectedFile;
+    private int durationInSeconds;
     Song song;
 
     //FXML variables
@@ -51,12 +59,53 @@ public class AddNewController {
         System.out.print("\nThe title of the song is " + song.getTitle() + "\nThe artist is " + song.getArtist() + "\nThe song is " + song.getTime() + " minutes long" + "\nThe genre is " + song.getGenre());
     }
     @FXML
-    public void handleClickChoose(ActionEvent actionEvent){
-        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
-        dialog.setMode(FileDialog.LOAD);
-        dialog.setVisible(true);
-        String file = dialog.getFile();
-        dialog.dispose();
-        System.out.println(file + " chosen.");
+    public void handleClickChoose(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Audio File");
+        fileChooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Audio Files (*.mp3, *.wav)", "*.mp3", "*.wav")
+        );
+
+        Stage stage = (Stage) btnFile.getScene().getWindow();
+        selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile != null) {
+            txtFile.setText(selectedFile.getName());
+
+            try {
+                durationInSeconds = getDurationInSeconds(selectedFile);
+
+                // Format as minutes:seconds (e.g., 3:05) for the UI text field
+                int minutes = durationInSeconds / 60;
+                int seconds = durationInSeconds % 60;
+                txtTime.setText(String.format("%d:%02d", minutes, seconds));
+
+                // Optional: Auto-fill title from filename (without .mp3/.wav) if txtTitle is empty
+                if (txtTitle.getText().isBlank()) {
+                    String fileName = selectedFile.getName();
+                    int dotIndex = fileName.lastIndexOf('.');
+                    txtTitle.setText(dotIndex > 0 ? fileName.substring(0, dotIndex) : fileName);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                txtTime.setText("0:00");
+            }
+        }
+    }
+    public int getDurationInSeconds(File file) throws Exception {
+        String name = file.getName().toLowerCase();
+
+        if (name.endsWith(".mp3")) {
+            Mp3File mp3 = new Mp3File(file);
+            return (int) mp3.getLengthInSeconds();
+        } else if (name.endsWith(".wav")) {
+            try (AudioInputStream stream = AudioSystem.getAudioInputStream(file)) {
+                AudioFormat format = stream.getFormat();
+                long frames = stream.getFrameLength();
+                return (int) Math.round((frames + 0.0) / format.getFrameRate());
+            }
+        } else {
+            throw new IllegalArgumentException("Unsupported audio format: " + name);
+        }
     }
 }
