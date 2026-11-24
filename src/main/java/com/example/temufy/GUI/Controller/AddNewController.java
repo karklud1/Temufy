@@ -1,4 +1,5 @@
 package com.example.temufy.GUI.Controller;
+import com.example.temufy.BE.Song;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,11 +9,8 @@ import javafx.stage.Stage;
 
 
 public class AddNewController {
-    //Java variables
-    private String title;
-    private String artist;
-    private String time;
-    private String genre;
+
+    Song song;
 
     //FXML variables
     @FXML
@@ -44,22 +42,10 @@ public class AddNewController {
     }
     @FXML
     public void handleClickSave(ActionEvent actionEvent){
-        title = txtTitle.getText();
-        artist = txtArtist.getText();
-        time = txtTime.getText();
-        genre = cboxGenre.getValue();
-        System.out.println("The title of the song is " + title + "\nThe artist is " + artist + "\nThe song is " + time + " minutes long" + "\nThe genre is " + genre);
-    }
-    public String getTitle(){
-        return title;
-    }
-    public String getArtist(){
-        return artist;
-    }
-    public String getTime(){
-        return time;
-    }
-    public String getGenre(){
-        return genre;
+        txtTitle.getText();
+        txtArtist.getText();
+        txtTime.getText();
+        cboxGenre.getValue();
+        System.out.print("\nThe title of the song is " + song.getTitle() + "\nThe artist is " + song.getArtist() + "\nThe song is " + song.getTime() + " minutes long" + "\nThe genre is " + song.getGenre());
     }
 }
