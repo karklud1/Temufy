@@ -34,10 +34,10 @@ public class SongDAO_DB implements ISongDataAccess {
                 int id = rs.getInt("Id");
                 String title = rs.getString("Title");
                 String artist = rs.getString("Artist");
-                int year = rs.getInt("Year");
+                String genre = rs.getString("Genre");
                 int time = rs.getInt("Time");
 
-                songs.add(new Song(id, title, artist, year, time));
+                songs.add(new Song(id, title, artist, genre, time));
             }
         }
 
@@ -46,14 +46,14 @@ public class SongDAO_DB implements ISongDataAccess {
 
     @Override
     public Song createSong(Song song) throws Exception {
-        String sql = "INSERT INTO Song (Title,Artist,Year,Time) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO Song (Title,Artist,Genre,Time) VALUES (?,?,?,?);";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, song.getTitle());
             stmt.setString(2, song.getArtist());
-            stmt.setInt(3, song.getYear());
+            stmt.setString(3, song.getGenre());
             stmt.setInt(4, song.getTime());
 
             stmt.executeUpdate();
@@ -65,21 +65,21 @@ public class SongDAO_DB implements ISongDataAccess {
                 id = rs.getInt(1);
             }
 
-            return new Song(id, song.getTitle(), song.getArtist(), song.getYear(), song.getTime());
+            return new Song(id, song.getTitle(), song.getArtist(), song.getGenre(), song.getTime());
         }
     }
 
     @Override
     public void updateSong(Song song) throws Exception {
 
-        String sql = "UPDATE Song SET Title = ?, Artist = ?, Year = ?, Time = ? WHERE Id = ?";
+        String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, Time = ? WHERE Id = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, song.getTitle());
             stmt.setString(2, song.getArtist());
-            stmt.setInt(3, song.getYear());
+            stmt.setString(3, song.getGenre());
             stmt.setInt(4, song.getTime());
             stmt.setInt(5, song.getId());
 
