@@ -5,9 +5,9 @@ public class Song {
     private String title;
     private String artist;
     private String genre;
-    private String time;
+    private double time;
 
-    public Song(String title, String artist, String genre, String time){
+    public Song(String title, String artist, String genre, double time){
         this.title = title;
         this.artist = artist;
         this.genre = genre;
@@ -20,7 +20,7 @@ public class Song {
     public String getArtist(){
         return artist;
     }
-    public String getTime(){
+    public double getTime(){
         return time;
     }
     public String getGenre(){

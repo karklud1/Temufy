@@ -44,7 +44,7 @@ public class AddNewController {
     public void handleClickSave(ActionEvent actionEvent){
         txtTitle.getText();
         txtArtist.getText();
-        txtTime.getText();
+        Double.parseDouble(txtTime.getText());
         cboxGenre.getValue();
         System.out.print("\nThe title of the song is " + song.getTitle() + "\nThe artist is " + song.getArtist() + "\nThe song is " + song.getTime() + " minutes long" + "\nThe genre is " + song.getGenre());
     }
