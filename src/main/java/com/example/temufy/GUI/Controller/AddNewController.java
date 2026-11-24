@@ -7,6 +7,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 
 public class AddNewController {
 
@@ -47,5 +49,14 @@ public class AddNewController {
         Double.parseDouble(txtTime.getText());
         cboxGenre.getValue();
         System.out.print("\nThe title of the song is " + song.getTitle() + "\nThe artist is " + song.getArtist() + "\nThe song is " + song.getTime() + " minutes long" + "\nThe genre is " + song.getGenre());
+    }
+    @FXML
+    public void handleClickChoose(ActionEvent actionEvent){
+        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        String file = dialog.getFile();
+        dialog.dispose();
+        System.out.println(file + " chosen.");
     }
 }

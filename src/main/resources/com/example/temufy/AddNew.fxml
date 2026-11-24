@@ -85,7 +85,7 @@
             </TextField>
          </children>
       </VBox>
-      <Button fx:id="btnFile" layoutX="432.0" layoutY="269.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="79.0" text="Choose..." />
+      <Button fx:id="btnFile" layoutX="432.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleClickChoose" prefHeight="26.0" prefWidth="79.0" text="Choose..." />
       <TextField fx:id="txtFile" layoutX="103.0" layoutY="267.0" minHeight="30.0" prefHeight="30.0" prefWidth="318.0" />
       <HBox layoutX="398.0" layoutY="359.0" prefHeight="26.0" prefWidth="112.0">
          <children>
