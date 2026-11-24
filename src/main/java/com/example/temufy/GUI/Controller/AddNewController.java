@@ -1,8 +1,6 @@
-package com.example.temufy.GUI;
-import com.example.temufy.Application;
+package com.example.temufy.GUI.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;

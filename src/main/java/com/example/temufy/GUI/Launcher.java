@@ -1,4 +1,4 @@
-package com.example.temufy;
+package com.example.temufy.GUI;
 
 public class Launcher {
     public static void main(String[] args) {

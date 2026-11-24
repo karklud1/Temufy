@@ -1,11 +1,9 @@
-package com.example.temufy.GUI;
+package com.example.temufy.GUI.Controller;
 
-import com.example.temufy.Application;
+import com.example.temufy.GUI.Application;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
