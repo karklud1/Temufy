@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PlaylistDAO_DB implements IPlaylistDataAccess {
+public class PlaylistDAO_DB implements IPlaylistDataAccess {
 
     private final DBConnector dbConnector = new DBConnector();
 
@@ -16,7 +16,7 @@ public abstract class PlaylistDAO_DB implements IPlaylistDataAccess {
     }
 
     @Override
-    public List<Playlist> getallPlaylists() throws Exception {
+    public List<Playlist> getAllPlaylists() throws Exception {
 
         List<Playlist> playlists = new ArrayList<>();
 

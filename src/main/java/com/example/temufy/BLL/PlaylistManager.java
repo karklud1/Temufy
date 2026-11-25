@@ -14,7 +14,7 @@ public class PlaylistManager {
     private IPlaylistDataAccess playlistDAO;
 
     public PlaylistManager() throws IOException {
-        //playlistDAO = new PlaylistDAO_DB()
+        playlistDAO = new PlaylistDAO_DB();
     }
 
     public List<Playlist> getAllPlaylists() throws Exception {

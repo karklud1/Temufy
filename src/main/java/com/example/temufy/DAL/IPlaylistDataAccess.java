@@ -7,8 +7,6 @@ public interface IPlaylistDataAccess {
 
     List<Playlist> getAllPlaylists() throws Exception;
 
-    List<Playlist> getallPlaylists() throws Exception;
-
     Playlist createPlaylist(Playlist newPlaylist) throws Exception;
 
     void updatePlaylist(Playlist playlist) throws Exception;
