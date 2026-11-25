@@ -14,4 +14,8 @@ public class PlaylistSongManager {
         // room for rules later, e.g. check the song isn't already in the playlist
         playlistDAO.addSongToPlaylist(playlistId, songId);
     }
+
+    public void removeSongFromPlaylist(int playlistId, int songId) throws Exception {
+        playlistDAO.removeSongFromPlaylist(playlistId, songId);
+    }
 }

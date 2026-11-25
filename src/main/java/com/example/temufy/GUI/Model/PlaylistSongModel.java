@@ -16,4 +16,8 @@ public class PlaylistSongModel {
     public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
         playlistSongManager.addSongToPlaylist(playlist.getId(), song.getId());
     }
+
+    public void removeSongFromPlaylist(Playlist playlist, Song song) throws Exception {
+        playlistSongManager.removeSongFromPlaylist(playlist.getId(), song.getId());
+    }
 }

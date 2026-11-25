@@ -26,4 +26,44 @@ public class PlaylistSongDAO_DB implements IPlaylistSongDataAccess {
             stmt.executeUpdate();
         }
     }
+
+    @Override
+    public void removeSongFromPlaylist(int playlistId, int songId) throws SQLException {
+
+        String selectSql = "SELECT TOP 1 Id, Position FROM PlaylistSong " +
+                "WHERE PlaylistId = ? AND SongId = ? ORDER BY Position";
+        String deleteSql = "DELETE FROM PlaylistSong WHERE Id = ?";
+        String shiftSql = "UPDATE PlaylistSong SET Position = Position - 1 " +
+                "WHERE PlaylistId = ? AND Position > ?";
+
+        try (Connection conn = dbConnector.getConnection()) {
+            conn.setAutoCommit(false);
+            try (PreparedStatement select = conn.prepareStatement(selectSql);
+                 PreparedStatement delete = conn.prepareStatement(deleteSql);
+                 PreparedStatement shift = conn.prepareStatement(shiftSql)) {
+
+                select.setInt(1, playlistId);
+                select.setInt(2, songId);
+                ResultSet rs = select.executeQuery();
+                if (!rs.next()) {
+                    conn.rollback();
+                    return;   // song was not in the playlist
+                }
+                int rowId = rs.getInt("Id");
+                int removedPosition = rs.getInt("Position");
+
+                delete.setInt(1, rowId);
+                delete.executeUpdate();
+
+                shift.setInt(1, playlistId);
+                shift.setInt(2, removedPosition);
+                shift.executeUpdate();
+
+                conn.commit();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e;
+            }
+        }
+    }
 }

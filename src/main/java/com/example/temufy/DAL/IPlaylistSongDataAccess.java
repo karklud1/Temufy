@@ -6,4 +6,6 @@ import java.sql.SQLException;
 public interface IPlaylistSongDataAccess {
 
     void addSongToPlaylist(int playlistId, int songId) throws SQLException;
+
+    void removeSongFromPlaylist(int playlistId, int songId) throws Exception;
 }

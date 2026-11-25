@@ -358,6 +358,24 @@ public class TemufyController implements Initializable {
     }
 
     @FXML
+    private void handleClickSongsInPlaylistDelete(ActionEvent actionEvent) {
+        Song selectedSong = (Song) tblSongsInPlayllist.getSelectionModel().getSelectedItem();
+        Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
+
+        if (selectedSong == null || selectedPlaylist == null) {
+            displayError(new Exception("Please select a playlist and a song in it."));
+            return;
+        }
+
+        try {
+            playlistSongModel.removeSongFromPlaylist(selectedPlaylist, selectedSong);
+            playlistModel.loadSongsForPlaylist(selectedPlaylist);   // refreshes the songs-in-playlist table
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
+    @FXML
     private void handleClickEdit(){
 
     }
@@ -368,9 +386,4 @@ public class TemufyController implements Initializable {
 
     public void handleClickSongsEdit(ActionEvent actionEvent) {
     }
-
-    public void handleClickSongsInPlaylistDelete(ActionEvent actionEvent) {
-    }
-
-
 }
