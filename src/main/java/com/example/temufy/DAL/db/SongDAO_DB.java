@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,12 @@ public class SongDAO_DB implements ISongDataAccess {
                 String artist = rs.getString("Artist");
                 String genre = rs.getString("Genre");
                 double time = rs.getDouble("Time");
+                String filePath = rs.getString("FilePath");
 
-                songs.add(new Song(title, artist, genre, time, id));
+                songs.add(new Song(title, artist, genre, time, filePath, id));
             }
+        } catch (SQLException ex) {
+            throw new Exception("Could not get songs from database", ex);
         }
 
         return songs;
@@ -44,7 +48,7 @@ public class SongDAO_DB implements ISongDataAccess {
 
     @Override
     public Song createSong(Song song) throws Exception {
-        String sql = "INSERT INTO Song (Title,Artist,Genre,[Time]) VALUES (?,?,?,?);";
+        String sql = "INSERT INTO Song (Title,Artist,Genre,[Time],FilePath) VALUES (?,?,?,?,?);";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -53,6 +57,7 @@ public class SongDAO_DB implements ISongDataAccess {
             stmt.setString(2, song.getArtist());
             stmt.setString(3, song.getGenre());
             stmt.setDouble(4, song.getTime());
+            stmt.setString(5, song.getFilePath());
 
             stmt.executeUpdate();
 
@@ -63,13 +68,16 @@ public class SongDAO_DB implements ISongDataAccess {
                 id = rs.getInt(1);
             }
 
-            return new Song(song.getTitle(), song.getArtist(), song.getGenre(), song.getTime(), id);
+            return new Song(song.getTitle(), song.getArtist(), song.getGenre(),
+                    song.getTime(), song.getFilePath(), id);
+        } catch (SQLException ex) {
+            throw new Exception("Could not create song", ex);
         }
     }
 
     @Override
     public void updateSong(Song song) throws Exception {
-        String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, [Time] = ? WHERE Id = ?";
+        String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, [Time] = ?, FilePath = ? WHERE Id = ?";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -78,9 +86,12 @@ public class SongDAO_DB implements ISongDataAccess {
             stmt.setString(2, song.getArtist());
             stmt.setString(3, song.getGenre());
             stmt.setDouble(4, song.getTime());
-            stmt.setInt(5, song.getId());
+            stmt.setString(5, song.getFilePath());
+            stmt.setInt(6, song.getId());
 
             stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new Exception("Could not update song", ex);
         }
     }
 
@@ -93,6 +104,8 @@ public class SongDAO_DB implements ISongDataAccess {
 
             stmt.setInt(1, song.getId());
             stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new Exception("Could not delete song", ex);
         }
     }
 }

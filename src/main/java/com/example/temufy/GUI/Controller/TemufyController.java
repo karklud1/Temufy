@@ -92,8 +92,8 @@ public class TemufyController implements Initializable {
         Scene scene = new Scene(fxmlLoader.load(), 520, 400);
 
         // Send den samme model med til AddNew-controlleren, så tabellen opdateres
-        // AddNewController controller = fxmlLoader.getController();
-        // controller.setModel(songModel);
+        AddNewController controller = fxmlLoader.getController();
+        controller.setModel(songModel);
 
         Stage stage = new Stage();
         stage.setTitle("Add Song");
