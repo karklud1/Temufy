@@ -27,7 +27,7 @@ public class TemufyController implements Initializable {
     @FXML
     private TextField txtSongSearch;
     @FXML
-    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete;
+    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
     @FXML
     private TableView<Song> tblSong,tblPlaylist;
     @FXML
@@ -53,6 +53,8 @@ public class TemufyController implements Initializable {
         colSongTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         // Lyt til søgefeltet (filtrerer FilteredList'en i modellen)
+        txtSongSearch.setVisible(false);
+        txtSongSearch.setManaged(false);
         txtSongSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             songModel.getObservableSongs().setPredicate(song -> {
 
@@ -75,6 +77,9 @@ public class TemufyController implements Initializable {
         SortedList<Song> sortedData = new SortedList<>(songModel.getObservableSongs());
         sortedData.comparatorProperty().bind(tblSong.comparatorProperty());
         tblSong.setItems(sortedData);
+
+        btnClear.setVisible(false);
+        btnClear.setManaged(false);
     }
 
     private void displayError(Throwable t) {
@@ -106,11 +111,43 @@ public class TemufyController implements Initializable {
      * Sletter den valgte sang
      */
     @FXML
-    private void handleClickDelete(ActionEvent actionEvent) throws Exception {
+    private void handleClickDeleteSong(ActionEvent actionEvent) throws Exception {
         Song selectedSong = tblSong.getSelectionModel().getSelectedItem();
 
         if (selectedSong != null) {
             songModel.deleteSong(selectedSong);
         }
+    }
+    @FXML
+    private void handleClickSearch(){
+        txtSongSearch.setManaged(true);
+        txtSongSearch.setVisible(true);
+        btnSearch.setVisible(false);
+        btnSearch.setManaged(false);
+        btnClear.setVisible(true);
+        btnClear.setManaged(true);
+    }
+    @FXML
+    private void handleClickClear(){
+        txtSongSearch.clear();
+        txtSongSearch.setManaged(false);
+        txtSongSearch.setVisible(false);
+        btnSearch.setVisible(true);
+        btnSearch.setManaged(true);
+        btnClear.setVisible(false);
+        btnClear.setManaged(false);
+
+    }
+    @FXML
+    private void handleClickNewPlaylist(){
+
+    }
+    @FXML
+    private void handleClickEdit(){
+
+    }
+    @FXML
+    private void handleClickDeletePlaylist(){
+
     }
 }

@@ -33,11 +33,13 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnSongDelete" layoutX="829.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleClickDelete" text="Delete" />
-      <Button fx:id="btnPlaylistNew" layoutX="20.0" layoutY="589.0" mnemonicParsing="false" text="New playlist" />
-      <Button fx:id="btnPlaylistEdit" layoutX="101.0" layoutY="589.0" mnemonicParsing="false" text="Edit" />
-      <Button fx:id="btnPlaylistDelete" layoutX="138.0" layoutY="589.0" mnemonicParsing="false" text="Delete" />
+      <Button fx:id="btnSongDelete" layoutX="829.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleClickDeleteSong" text="Delete" />
+      <Button fx:id="btnPlaylistNew" layoutX="20.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleClickNewPlaylist" text="New playlist" />
+      <Button fx:id="btnPlaylistEdit" layoutX="101.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleClickEdit" text="Edit" />
+      <Button fx:id="btnPlaylistDelete" layoutX="138.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleClickDeletePlaylist" text="Delete" />
       <Slider layoutX="561.0" layoutY="135.0" prefHeight="14.0" prefWidth="218.0" />
       <Text fill="WHITE" layoutX="650.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Volume" />
+      <Button fx:id="btnSearch" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleClickSearch" prefHeight="20.0" prefWidth="60.0" text="Search" />
+      <Button fx:id="btnClear" layoutX="424.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleClickClear" prefHeight="20.0" prefWidth="60.0" style="-fx-background-color: RED;" text="Clear" textFill="WHITE" />
     </children>
 </AnchorPane>
