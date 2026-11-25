@@ -3,14 +3,12 @@ package com.example.temufy.BE;
 public class Playlist {
 
     private String name;
+    private int id;
     private int numberOfSongs;
     private double totalTime;
-    private int id;
 
-    public Playlist(String name, int numberOfSongs, double totalTime, int id){
+    public Playlist(String name, int id){
         this.name = name;
-        this.numberOfSongs = numberOfSongs;
-        this.totalTime = totalTime;
         this.id = id;
     }
 

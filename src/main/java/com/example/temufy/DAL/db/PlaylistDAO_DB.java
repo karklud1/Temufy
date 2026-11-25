@@ -23,21 +23,17 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
         try (Connection conn = dbConnector.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Playlist");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM PlaylistSong");
 
             while (rs.next()) {
 
-                int id = rs.getInt("Id");
                 String name = rs.getString("Name");
-                int numberOfSongs = rs.getInt("NumberOfSongs");
-                double totalTime = rs.getDouble("TotalTime");
+                int playlistId = rs.getInt("PlaylistId");
 
                 playlists.add(
                         new Playlist(
                                 name,
-                                numberOfSongs,
-                                totalTime,
-                                id
+                                playlistId
                         )
                 );
             }
@@ -70,9 +66,7 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
 
             return new Playlist(
                     playlist.getName(),
-                    playlist.getNumberOfSongs(),
-                    playlist.getTotalTime(),
-                    id
+                    playlist.getId()
             );
         }
     }
