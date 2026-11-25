@@ -9,7 +9,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/temufyview.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 658, 634);
+        Scene scene = new Scene(fxmlLoader.load(), 900, 634);
         stage.setTitle("Temufy");
         stage.setScene(scene);
         stage.show();
