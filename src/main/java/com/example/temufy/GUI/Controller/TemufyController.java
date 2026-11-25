@@ -1,6 +1,5 @@
 package com.example.temufy.GUI.Controller;
 
-import com.example.temufy.BE.Playlist;
 import com.example.temufy.BE.Song;
 import com.example.temufy.GUI.Application;
 import com.example.temufy.GUI.Model.SongModel;
@@ -12,40 +11,28 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TemufyController implements Initializable {
-
     //FXML variables
     @FXML
     private TextField txtSongSearch;
     @FXML
-    private Button btnSongCreate, btnSongDelete, btnPlaylistNew, btnPlaylistEdit, btnPlaylistDelete;
+    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete;
     @FXML
-    private TableView<Song> tblSong;
+    private TableView<Song> tblSong,tblPlaylist;
     @FXML
-    private TableView<Playlist> tblPlaylist;
-    @FXML
-    private TableColumn<Song, String> colSongtitle, colSongArtist, colSongGenre, colSongTime;
-    @FXML
-    private TableColumn<Playlist, String> colPlaylistName, colPlaylistSongs, colPlaylistTime;
-    @FXML
-    private Slider volumeSlider;
+    private TableColumn<Song, String> colSongtitle,colSongArtist,colSongGenre,colSongTime,colPlaylistName,colPlaylistSongs,colPlaylistTime;
 
     private SongModel songModel;
-    private MediaPlayer mediaPlayer;
 
     public TemufyController() {
         try {
@@ -58,15 +45,17 @@ public class TemufyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Opsæt kolonner i tableview
         colSongtitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colSongArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         colSongGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
         colSongTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
+        // Lyt til søgefeltet (filtrerer FilteredList'en i modellen)
         txtSongSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             songModel.getObservableSongs().setPredicate(song -> {
 
+                // Hvis søgefeltet er tomt, vis alle sange
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
@@ -81,39 +70,10 @@ public class TemufyController implements Initializable {
             });
         });
 
+        // Gør tabellen sorterbar ved klik på kolonneoverskrifter
         SortedList<Song> sortedData = new SortedList<>(songModel.getObservableSongs());
         sortedData.comparatorProperty().bind(tblSong.comparatorProperty());
         tblSong.setItems(sortedData);
-
-        volumeSlider.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (mediaPlayer != null) {
-                mediaPlayer.setVolume(newValue.doubleValue());
-            }
-        });
-
-        tblSong.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
-                Song selected = tblSong.getSelectionModel().getSelectedItem();
-                if (selected != null) {
-                    playSong(selected);
-                }
-            }
-        });
-    }
-
-    private void playSong(Song song) {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
-        }
-        try {
-            Media media = new Media(new File(song.getFilePath()).toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.setVolume(volumeSlider.getValue()); // nye players starter på 1.0
-            mediaPlayer.play();
-        } catch (Exception e) {
-            displayError(e);
-        }
     }
 
     private void displayError(Throwable t) {
@@ -123,6 +83,9 @@ public class TemufyController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Åbner "Add Song"-vinduet
+     */
     @FXML
     private void handleClickCreate(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew.fxml"));
@@ -138,6 +101,9 @@ public class TemufyController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Sletter den valgte sang
+     */
     @FXML
     private void handleClickDelete(ActionEvent actionEvent) throws Exception {
         Song selectedSong = tblSong.getSelectionModel().getSelectedItem();

@@ -1,7 +1,5 @@
 package com.example.temufy.BE;
 
-import java.util.List;
-
 public class Playlist {
 
     private String name;
