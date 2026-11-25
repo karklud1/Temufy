@@ -1,6 +1,7 @@
 package com.example.temufy.BLL;
 
 import com.example.temufy.BE.Playlist;
+import com.example.temufy.BE.Song;
 import com.example.temufy.DAL.IPlaylistDataAccess;
 import com.example.temufy.DAL.db.PlaylistDAO_DB;
 
@@ -17,6 +18,11 @@ public class PlaylistManager {
 
     public List<Playlist> getAllPlaylists() throws Exception {
         return playlistDAO.getAllPlaylists();
+    }
+
+    // Songs on one playlist, so the middle table can play them from the mp3 folder
+    public List<Song> getSongsForPlaylist(int playlistId) throws Exception {
+        return playlistDAO.getSongsForPlaylist(playlistId);
     }
 
     public Playlist createPlaylist(Playlist playlist) throws Exception {

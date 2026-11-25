@@ -24,4 +24,16 @@ public class Playlist {
     public int getId(){
         return id;
     }
+
+    // The playlist table asks for "totalTimeFormatted", so 454 shows as 00:07:34
+    public String getTotalTimeFormatted() {
+        int totalSeconds = (int) Math.round(totalTime);
+        if (totalSeconds < 0) {
+            totalSeconds = 0;
+        }
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
 }

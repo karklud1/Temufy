@@ -3,6 +3,7 @@ package com.example.temufy.GUI.Controller;
 import com.example.temufy.BE.Playlist;
 import com.example.temufy.BE.Song;
 import com.example.temufy.GUI.Application;
+import com.example.temufy.GUI.Model.PlayerModel;
 import com.example.temufy.GUI.Model.PlaylistModel;
 import com.example.temufy.GUI.Model.SongModel;
 
@@ -17,6 +18,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +41,21 @@ public class TemufyController implements Initializable {
     @FXML
     private Label lblTotalSongs;
     @FXML
+    private Label lblSongTitle;
+    @FXML
+    private Label lblSongArtist;
+    @FXML
+    private Label lblTimeCurrent;
+    @FXML
+    private Label lblTimeTotal;
+    @FXML
     private TextField txtSongSearch;
+    @FXML
+    private Slider sldSongProgress;
+    @FXML
+    private Slider sldVolume;
+    @FXML
+    private Button btnPrevSong, btnPlayAndPause, btnNextSong;
     @FXML
     private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
     @FXML
@@ -51,7 +69,11 @@ public class TemufyController implements Initializable {
 
     private SongModel songModel;
 
-    private TotalSongs totalSongs;
+    private TotalSongs totalSongs = new TotalSongs();
+
+    private final PlayerModel player = new PlayerModel();
+
+    private boolean draggingProgress;
 
     public TemufyController() {
         try {
@@ -75,6 +97,7 @@ public class TemufyController implements Initializable {
             });
 
             searchSong();
+            setupPlayer();
         }
     }
 
@@ -107,7 +130,7 @@ public class TemufyController implements Initializable {
         colSongtitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         colSongArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
         colSongGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        colSongTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+        colSongTime.setCellValueFactory(new PropertyValueFactory<>("timeFormatted"));
 
         // Makes the table able to sort
         SortedList<Song> sortedData = new SortedList<>(songModel.getObservableSongs());
@@ -117,15 +140,139 @@ public class TemufyController implements Initializable {
 
 
     private void playlistTableShow(){
+        if (playlistModel == null) {
+            return;
+        }
         // playlist table
         colPlaylistName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colPlaylistSongs.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
-        colPlaylistTime.setCellValueFactory(new PropertyValueFactory<>("totalTime"));
+        colPlaylistTime.setCellValueFactory(new PropertyValueFactory<>("totalTimeFormatted"));
 
         // Makes the table able to sort
         SortedList<Playlist> sortedDataPlaylist = new SortedList<>(playlistModel.getObservablePlaylists());
         sortedDataPlaylist.comparatorProperty().bind(tblPlaylist.comparatorProperty());
         tblPlaylist.setItems(sortedDataPlaylist);
+
+        colSongsInPlayllisttitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colSongsInPlayllistArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        colSongsInPlayllistGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        colSongsInPlayllistTime.setCellValueFactory(new PropertyValueFactory<>("timeFormatted"));
+        tblSongsInPlayllist.setItems(playlistModel.getSongsInPlaylist());
+
+        tblPlaylist.getSelectionModel().selectedItemProperty().addListener((obs, oldPlaylist, selectedPlaylist) -> {
+            try {
+                playlistModel.loadSongsForPlaylist(selectedPlaylist);
+            } catch (Exception e) {
+                displayError(e);
+            }
+        });
+    }
+
+    // Wires the buttons, the two song tables and the sliders. Playback uses the mp3 file.
+    private void setupPlayer() {
+        player.setOnSongChanged(this::updatePlayerView);
+        player.setOnError(this::displayError);
+        player.setOnTimeChanged(this::updatePlayerTime);
+
+        btnPrevSong.setOnAction(event -> player.previousSong());
+        btnPlayAndPause.setOnAction(event -> handlePlayAndPause());
+        btnNextSong.setOnAction(event -> player.nextSong());
+
+        tblSong.setRowFactory(table -> {
+            TableRow<Song> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()) {
+                    playSelected(row.getItem(), tblSong.getItems(), false);
+                }
+            });
+            return row;
+        });
+
+        tblSongsInPlayllist.setRowFactory(table -> {
+            TableRow<Song> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty() && row.getItem() instanceof Song song) {
+                    playSelected(song, tblSongsInPlayllist.getItems(), true);
+                }
+            });
+            return row;
+        });
+
+        sldVolume.setMin(0);
+        sldVolume.setMax(100);
+        sldVolume.setValue(80);
+        sldVolume.valueProperty().addListener((obs, oldValue, newValue) ->
+                player.setVolume(newValue.doubleValue() / 100.0));
+
+        sldSongProgress.setMin(0);
+        sldSongProgress.setOnMousePressed(event -> draggingProgress = true);
+        sldSongProgress.setOnMouseReleased(event -> {
+            draggingProgress = false;
+            player.seek(sldSongProgress.getValue());
+        });
+    }
+
+    private void handlePlayAndPause() {
+        if (player.getCurrentSong() == null) {
+            Song selected = tblSong.getSelectionModel().getSelectedItem();
+            if (selected == null && !tblSong.getItems().isEmpty()) {
+                selected = tblSong.getItems().get(0);
+            }
+            if (selected == null) {
+                displayError(new Exception("Choose a song first."));
+                return;
+            }
+            playSelected(selected, tblSong.getItems(), false);
+            return;
+        }
+        player.togglePlayPause();
+    }
+
+    private void playSelected(Song song, List<?> songs, boolean loop) {
+        List<Song> queue = new ArrayList<>();
+        for (Object item : songs) {
+            if (item instanceof Song oneSong) {
+                queue.add(oneSong);
+            }
+        }
+        try {
+            player.playSong(song, queue, loop);
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
+    private void updatePlayerView() {
+        Song song = player.getCurrentSong();
+        if (song == null) {
+            lblSongTitle.setText("Song Name");
+            lblSongArtist.setText("Artist Name");
+            btnPlayAndPause.setText("▶");
+            return;
+        }
+        lblSongTitle.setText(song.getTitle());
+        lblSongArtist.setText(song.getArtist());
+        btnPlayAndPause.setText(player.isPlaying() ? "⏸" : "▶");
+    }
+
+    private void updatePlayerTime(double current, double total) {
+        lblTimeCurrent.setText(formatTime(current));
+        lblTimeTotal.setText(formatTime(total));
+        if (!draggingProgress) {
+            sldSongProgress.setMax(total > 0 ? total : 0);
+            sldSongProgress.setValue(current);
+        }
+    }
+
+    // 277 seconds becomes 04:37
+    private String formatTime(double seconds) {
+        int totalSeconds = (int) Math.round(seconds);
+        if (totalSeconds < 0) {
+            totalSeconds = 0;
+        }
+        int minutes = totalSeconds / 60;
+        int secs = totalSeconds % 60;
+        return String.format("%02d:%02d", minutes, secs);
     }
 
     // Displays error for user when a checked error happens
@@ -150,20 +297,6 @@ public class TemufyController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    @FXML
-    private void handleClickCreate2(ActionEvent actionEvent) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew2.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 520, 400);
-
-        AddNewController2 controller = fxmlLoader.getController();
-        controller.setModel(songModel);
-
-        Stage stage = new Stage();
-        stage.setTitle("Add Song");
-        stage.setScene(scene);
-        stage.show();
-    }
-
      // Deletes selected song
     @FXML
     private void handleClickSongsDelete(ActionEvent actionEvent) throws Exception {
@@ -188,9 +321,24 @@ public class TemufyController implements Initializable {
             btnSearch.setText("Filter");
         }
     }
+    // Opens the small window where the user types a playlist name
     @FXML
-    private void handleClickNewPlaylist(){
+    private void handleClickNewPlaylist() throws IOException {
+        if (playlistModel == null) {
+            displayError(new Exception("Playlists could not be loaded."));
+            return;
+        }
 
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/NewPlaylist.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 420, 220);
+
+        NewPlaylistController controller = fxmlLoader.getController();
+        controller.setModel(playlistModel);
+
+        Stage stage = new Stage();
+        stage.setTitle("New playlist");
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     private void handleClickEdit(){
@@ -202,9 +350,6 @@ public class TemufyController implements Initializable {
     }
 
     public void handleClickSongsEdit(ActionEvent actionEvent) {
-    }
-
-    public void handleClickSongsInPlaylistAdd(ActionEvent actionEvent) {
     }
 
     public void handleClickSongsInPlaylistDelete(ActionEvent actionEvent) {

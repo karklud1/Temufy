@@ -1,6 +1,7 @@
 package com.example.temufy.DAL.db;
 
 import com.example.temufy.BE.Playlist;
+import com.example.temufy.BE.Song;
 import com.example.temufy.DAL.IPlaylistDataAccess;
 
 import java.io.IOException;
@@ -29,8 +30,8 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
 
                 int id = rs.getInt("Id");
                 String name = rs.getString("Name");
-                int songs = rs.getInt("Songs");
-                int time = rs.getInt("Time");
+                int songs = rs.getInt("SongCount");
+                int time = rs.getInt("PLAYTIME");
 
                 playlists.add(
                         new Playlist(
@@ -46,10 +47,43 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
         return playlists;
     }
 
+    // PlaylistSong only stores ids. The file path still points at the mp3 folder.
+    @Override
+    public List<Song> getSongsForPlaylist(int playlistId) throws Exception {
+        String sql = "SELECT s.Id, s.Title, s.Artist, s.Genre, s.[Time], s.FilePath " +
+                "FROM Song s INNER JOIN PlaylistSong ps ON ps.SongId = s.Id " +
+                "WHERE ps.PlaylistId = ? ORDER BY ps.Id";
+
+        List<Song> songs = new ArrayList<>();
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, playlistId);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    songs.add(new Song(
+                            rs.getString("Title"),
+                            rs.getString("Artist"),
+                            rs.getString("Genre"),
+                            rs.getDouble("Time"),
+                            rs.getString("FilePath"),
+                            rs.getInt("Id")
+                    ));
+                }
+            }
+        } catch (SQLException ex) {
+            throw new Exception("Could not get songs for the playlist", ex);
+        }
+
+        return songs;
+    }
+
     @Override
     public Playlist createPlaylist(Playlist playlist) throws Exception {
 
-        String sql = "INSERT INTO Playlist (Name, NumberOfSongs, TotalTime) VALUES (?,?,?)";
+        String sql = "INSERT INTO Playlist (Name, SongCount, PLAYTIME) VALUES (?,?,?)";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -69,7 +103,7 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
             }
 
             return new Playlist(
-                    playlist.getId(),
+                    id,
                     playlist.getName(),
                     playlist.getNumberOfSongs(),
                     playlist.getTotalTime()
@@ -80,7 +114,7 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
     @Override
     public void updatePlaylist(Playlist playlist) throws Exception {
 
-        String sql = "UPDATE Playlist SET Name = ?, NumberOfSongs = ?, TotalTime = ? WHERE Id = ? ";
+        String sql = "UPDATE Playlist SET Name = ?, SongCount = ?, PLAYTIME = ? WHERE Id = ? ";
 
         try (Connection conn = dbConnector.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

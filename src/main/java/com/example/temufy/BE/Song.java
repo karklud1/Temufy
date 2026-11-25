@@ -6,7 +6,7 @@ public class Song {
     private String title;
     private String artist;
     private String genre;
-    private double time;        // længde i minutter (3.5 = 3:30)
+    private double time;        // length in seconds. 277 = 04:37
     private String filePath;    // sti til lydfilen
 
     // For songs loaded from the database (the id already exists)
@@ -63,10 +63,15 @@ public class Song {
         this.filePath = filePath;
     }
 
-    // Bruges af tabelkolonnen til at vise 3:45 i stedet for 3.75
+    // The song table asks for "timeFormatted", so 277 shows as 04:37
     public String getTimeFormatted() {
-        int totalSeconds = (int) Math.round(time * 60);
-        return String.format("%d:%02d", totalSeconds / 60, totalSeconds % 60);
+        int totalSeconds = (int) Math.round(time);
+        if (totalSeconds < 0) {
+            totalSeconds = 0;
+        }
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 
     @Override

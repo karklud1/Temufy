@@ -149,17 +149,17 @@ public class AddNewController {
         return MP3_FOLDER + "/" + target.getFileName();
     }
 
-    /**
-     * "3:45" (what SongTime writes) or "3.5" -> minutes
-     */
+    // "3:45" or "3.5" minutes becomes whole seconds, because the Time column is an int
     private double parseTime(String text) {
         text = text.trim().replace(',', '.');
 
         if (text.contains(":")) {
             String[] parts = text.split(":");
-            return Integer.parseInt(parts[0].trim()) + Integer.parseInt(parts[1].trim()) / 60.0;
+            int minutes = Integer.parseInt(parts[0].trim());
+            int seconds = Integer.parseInt(parts[1].trim());
+            return minutes * 60 + seconds;
         }
-        return Double.parseDouble(text);
+        return Math.round(Double.parseDouble(text) * 60);
     }
 
     private void displayError(Throwable t) {

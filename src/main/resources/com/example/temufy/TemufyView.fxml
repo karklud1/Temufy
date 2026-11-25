@@ -20,27 +20,27 @@
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
                <children>
-                  <Button id="btn-transport" mnemonicParsing="false" styleClass="btn-transport" text="⏮" />
-                  <Button id="btn-play" mnemonicParsing="false" styleClass="btn-play" text="▶" />
-                  <Button id="btn-transport" mnemonicParsing="false" styleClass="btn-transport" text="⏭" />
+                  <Button id="btn-transport" fx:id="btnPrevSong" mnemonicParsing="false" styleClass="btn-transport" text="⏮" />
+                  <Button id="btn-play" fx:id="btnPlayAndPause" mnemonicParsing="false" styleClass="btn-play" text="▶" />
+                  <Button id="btn-transport" fx:id="btnNextSong" mnemonicParsing="false" styleClass="btn-transport" text="⏭" />
                </children>
             </HBox>
             <Region maxHeight="105.0" maxWidth="294.0" prefHeight="105.0" prefWidth="294.0" styleClass="album-art" />
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="2.0">
                <children>
-                  <Label styleClass="song-title-label" text="Song Name" />
-                  <Label styleClass="song-artist-label" text="Artist Name" />
+                  <Label fx:id="lblSongTitle" styleClass="song-title-label" text="Song Name" />
+                  <Label fx:id="lblSongArtist" styleClass="song-artist-label" text="Artist Name" />
                </children>
             </VBox>
             <Region prefHeight="200.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-            <Label styleClass="time-label" text="0:00" />
-            <Slider prefWidth="240.0" />
-            <Label prefHeight="16.0" prefWidth="27.0" styleClass="time-label" text="0:00" />
+            <Label fx:id="lblTimeCurrent" styleClass="time-label" text="0:00" />
+            <Slider fx:id="sldSongProgress" prefWidth="240.0" />
+            <Label fx:id="lblTimeTotal" prefHeight="16.0" prefWidth="48.0" styleClass="time-label" text="0:00" />
             <Region prefHeight="200.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
             <HBox alignment="CENTER_LEFT">
                <children>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Volume" />
-                  <Slider prefHeight="14.0" prefWidth="90.0" />
+                  <Slider fx:id="sldVolume" prefHeight="14.0" prefWidth="90.0" />
                </children>
             </HBox>
               <TextField fx:id="txtSongSearch" prefHeight="25.0" prefWidth="220.0" promptText="Filter by title or artist..." style="-fx-background-color: #121518; -fx-border-color: #2A3038; -fx-border-radius: 6; -fx-background-radius: 6;" />
@@ -110,7 +110,6 @@
                   </TableView>
                   <HBox spacing="8.0">
                      <children>
-                          <Button mnemonicParsing="false" onAction="#handleClickSongsInPlaylistAdd" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Add Song" />
                         <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↑" />
                         <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↓" />
                         <Region prefHeight="26.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
