@@ -87,14 +87,14 @@
       </VBox>
       <Button fx:id="btnFile" layoutX="432.0" layoutY="269.0" mnemonicParsing="false" onAction="#handleClickChoose" prefHeight="26.0" prefWidth="79.0" text="Choose..." />
       <TextField fx:id="txtFile" layoutX="103.0" layoutY="267.0" minHeight="30.0" prefHeight="30.0" prefWidth="318.0" />
-      <HBox layoutX="398.0" layoutY="359.0" prefHeight="26.0" prefWidth="112.0">
+      <HBox layoutX="362.0" layoutY="359.0" prefHeight="26.0" prefWidth="148.0">
          <children>
-            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleClickCancel" prefHeight="26.0" prefWidth="51.0" text="Cancel">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#handleClickCancel" prefHeight="26.0" prefWidth="60.0" text="Cancel">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleClickSave" text="Save" />
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#handleClickSave" prefHeight="25.0" prefWidth="60.0" text="Save" />
          </children>
       </HBox>
    </children>
