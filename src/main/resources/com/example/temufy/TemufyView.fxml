@@ -110,9 +110,8 @@
                   </TableView>
                   <HBox spacing="8.0">
                      <children>
-                          <Button mnemonicParsing="false" onAction="#handleClickSongsInPlaylistAdd" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Add Song" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↑" />
-                        <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↓" />
+                        <Button mnemonicParsing="false" onAction="#handleMoveSongUp" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↑" />
+                        <Button mnemonicParsing="false" onAction="#handleMoveSongDown" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↓" />
                         <Region prefHeight="26.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#handleClickSongsInPlaylistDelete" prefHeight="20.0" prefWidth="60.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />
                      </children>
@@ -130,7 +129,7 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
       </HBox>
-      <Button layoutX="658.0" layoutY="469.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-color: #28282D; -fx-border-radius: 8;" text="←" AnchorPane.leftAnchor="658.0" AnchorPane.rightAnchor="495.0">
+      <Button layoutX="658.0" layoutY="469.0" mnemonicParsing="false" onAction="#handleClickAddSongToPlaylist" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-color: #28282D; -fx-border-radius: 8;" text="←" AnchorPane.leftAnchor="658.0" AnchorPane.rightAnchor="495.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

@@ -1,6 +1,9 @@
+
 package com.example.temufy.DAL;
 
 import com.example.temufy.BE.Playlist;
+import com.example.temufy.BE.Song;
+
 import java.util.List;
 
 public interface IPlaylistDataAccess {
@@ -13,4 +16,13 @@ public interface IPlaylistDataAccess {
 
     void deletePlaylist(Playlist playlist) throws Exception;
 
+    List<Song> getSongsFromPlaylist(int playlistId) throws Exception;
+
+    void addSongToPlaylist(int playlistId, int songId) throws Exception;
+
+    void removeSongFromPlaylist(int playlistId, int songId) throws Exception;
+
+    void moveSongUp(int playlistId, int songId) throws Exception;
+
+    void moveSongDown(int playlistId, int songId) throws Exception;
 }
