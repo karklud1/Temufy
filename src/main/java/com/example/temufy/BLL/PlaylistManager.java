@@ -21,8 +21,8 @@ public class PlaylistManager {
         return playlistDAO.getAllPlaylists();
     }
 
-    public Playlist createPlaylist(String name) throws Exception {
-        return playlistDAO.createPlaylist(name);
+    public Playlist createPlaylist(Playlist playlist) throws Exception {
+        return playlistDAO.createPlaylist(playlist);
     }
 
     public void updatePlaylist(Playlist updatedPlaylist) throws Exception {
@@ -35,7 +35,7 @@ public class PlaylistManager {
 
     // Henter alle sange fra en bestemt playlist
     public List<Song> getSongsFromPlaylist(int playlistId) throws Exception {
-        return playlistDAO.getSongsOnPlaylist(playlistId);
+        return playlistDAO.getSongsFromPlaylist(playlistId);
     }
 
     // Tilføjer en sang til en playlist

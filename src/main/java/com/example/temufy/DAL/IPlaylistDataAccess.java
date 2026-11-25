@@ -10,14 +10,19 @@ public interface IPlaylistDataAccess {
 
     List<Playlist> getAllPlaylists() throws Exception;
 
-    Playlist createPlaylist(String name) throws Exception;
+    Playlist createPlaylist(Playlist newPlaylist) throws Exception;
 
     void updatePlaylist(Playlist playlist) throws Exception;
 
     void deletePlaylist(Playlist playlist) throws Exception;
 
-    List<Song> getSongsOnPlaylist(int playlistId) throws Exception;
+    List<Song> getSongsFromPlaylist(int playlistId) throws Exception;
 
     void addSongToPlaylist(int playlistId, int songId) throws Exception;
 
+    void removeSongFromPlaylist(int playlistId, int songId) throws Exception;
+
+    void moveSongUp(int playlistId, int songId) throws Exception;
+
+    void moveSongDown(int playlistId, int songId) throws Exception;
 }

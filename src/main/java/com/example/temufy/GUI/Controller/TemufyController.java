@@ -256,6 +256,25 @@ public class TemufyController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    private void handleClickCreate2(ActionEvent actionEvent)
+            throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                Application.class.getResource(
+                        "/com/example/temufy/AddNew2.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load(), 520, 400);
+
+        AddNewController2 controller = fxmlLoader.getController();
+        controller.setModel(songModel);
+
+        Stage stage = new Stage();
+        stage.setTitle("Add Song");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     // Sletter en valgt sang fra sangbiblioteket
     @FXML
     private void handleClickSongsDelete(ActionEvent actionEvent)

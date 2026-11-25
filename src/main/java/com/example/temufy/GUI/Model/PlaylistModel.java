@@ -30,8 +30,8 @@ public class PlaylistModel {
         return filteredList;
     }
 
-    public void createPlaylist(String name ) throws Exception {
-        Playlist createdPlaylist = playlistManager.createPlaylist(name);
+    public void createPlaylist(Playlist newPlaylist) throws Exception {
+        Playlist createdPlaylist = playlistManager.createPlaylist(newPlaylist);
         playlistsToBeViewed.add(createdPlaylist);
     }
 
