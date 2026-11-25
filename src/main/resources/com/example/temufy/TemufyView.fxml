@@ -33,7 +33,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="btnSongDelete" layoutX="829.0" layoutY="589.0" mnemonicParsing="false" text="Delete" />
+      <Button fx:id="btnSongDelete" layoutX="829.0" layoutY="589.0" mnemonicParsing="false" onAction="#handleClickDelete" text="Delete" />
       <Button fx:id="btnPlaylistNew" layoutX="20.0" layoutY="589.0" mnemonicParsing="false" text="New playlist" />
       <Button fx:id="btnPlaylistEdit" layoutX="101.0" layoutY="589.0" mnemonicParsing="false" text="Edit" />
       <Button fx:id="btnPlaylistDelete" layoutX="138.0" layoutY="589.0" mnemonicParsing="false" text="Delete" />

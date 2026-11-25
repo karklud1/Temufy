@@ -13,8 +13,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class AddNewController {
+
+    // Folder in the project root where the audio files are kept
+    private static final String MP3_FOLDER = "mp3";
 
     private File selectedFile;
 
@@ -43,23 +50,32 @@ public class AddNewController {
     }
 
     /**
-     *
+     * Same idea as onCreate in MovieViewController
      */
     @FXML
     public void handleClickSave(ActionEvent actionEvent) {
         try {
             // get user song data from UI
-            String title = txtTitle.getText();
-            String artist = txtArtist.getText();
+            String title = txtTitle.getText().trim();
+            String artist = txtArtist.getText().trim();
             String genre = cboxGenre.getValue();
             double time = parseTime(txtTime.getText());
 
+            if (title.isEmpty() || artist.isEmpty()) {
+                throw new Exception("Please enter a title and an artist.");
+            }
             if (selectedFile == null) {
                 throw new Exception("Please choose an audio file.");
             }
+            if (genre == null || genre.equals("Genre...")) {
+                genre = null;   // Genre is optional in the database
+            }
 
-            // new song object (the database creates the id)
-            Song newSong = new Song(title, artist, genre, time, selectedFile.getAbsolutePath(), 0);
+            // copy the file into the mp3 folder, store only the relative path (mp3/song.mp3)
+            String relativePath = copyToMp3Folder(selectedFile);
+
+            // new song object (id = 0, the database creates the real id)
+            Song newSong = new Song(title, artist, genre, time, relativePath, 0);
 
             // call model to create the song in the dal
             songModel.createSong(newSong);
@@ -99,6 +115,38 @@ public class AddNewController {
             txtFile.setText(selectedFile.getName());
             songTime.songTime(selectedFile, txtTime, txtTitle);
         }
+    }
+
+    /**
+     * Copies the chosen audio file into the project's mp3 folder
+     * and returns the relative path that is stored in the database (e.g. "mp3/song.mp3").
+     */
+    private String copyToMp3Folder(File source) throws IOException {
+        Path mp3Dir = Paths.get(MP3_FOLDER).toAbsolutePath().normalize();
+        Files.createDirectories(mp3Dir);
+
+        Path src = source.toPath().toAbsolutePath().normalize();
+
+        // Already inside the mp3 folder: nothing to copy
+        if (src.startsWith(mp3Dir)) {
+            return MP3_FOLDER + "/" + mp3Dir.relativize(src).toString().replace('\\', '/');
+        }
+
+        // Do not overwrite a different file with the same name: song.mp3 -> song (1).mp3
+        String fileName = source.getName();
+        int dot = fileName.lastIndexOf('.');
+        String baseName = dot > 0 ? fileName.substring(0, dot) : fileName;
+        String extension = dot > 0 ? fileName.substring(dot) : "";
+
+        Path target = mp3Dir.resolve(fileName);
+        int counter = 1;
+        while (Files.exists(target)) {
+            target = mp3Dir.resolve(baseName + " (" + counter + ")" + extension);
+            counter++;
+        }
+
+        Files.copy(src, target);
+        return MP3_FOLDER + "/" + target.getFileName();
     }
 
     /**
