@@ -26,35 +26,11 @@ public class TemufyController implements Initializable {
     @FXML
     private TextField txtSongSearch;
     @FXML
-    private Button btnSongCreate;
+    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete;
     @FXML
-    private Button btnSongDelete;
+    private TableView<Song> tblSong,tblPlaylist;
     @FXML
-    private Button btnPlaylistNew;
-    @FXML
-    private Button btnPlaylistEdit;
-    @FXML
-    private Button btnPlaylistDelete;
-
-    @FXML
-    private TableView tblPlaylist;
-    @FXML
-    private TableColumn colPlaylistName;
-    @FXML
-    private TableColumn colPlaylistSongs;
-    @FXML
-    private TableColumn colPlaylistTime;
-
-    @FXML
-    private TableView<Song> tblSong;
-    @FXML
-    private TableColumn<Song, String> colSongtitle;
-    @FXML
-    private TableColumn<Song, String> colSongArtist;
-    @FXML
-    private TableColumn<Song, String> colSongGenre;
-    @FXML
-    private TableColumn<Song, String> colSongTime;
+    private TableColumn<Song, String> colSongtitle,colSongArtist,colSongGenre,colSongTime,colPlaylistName,colPlaylistSongs,colPlaylistTime;
 
     private SongModel songModel;
 
