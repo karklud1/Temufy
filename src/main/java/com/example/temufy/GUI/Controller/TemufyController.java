@@ -3,11 +3,8 @@ package com.example.temufy.GUI.Controller;
 import com.example.temufy.BE.Playlist;
 import com.example.temufy.BE.Song;
 import com.example.temufy.GUI.Application;
-import com.example.temufy.GUI.Model.PlayerModel;
-import com.example.temufy.GUI.Model.PlaylistModel;
-import com.example.temufy.GUI.Model.SongModel;
+import com.example.temufy.GUI.Model.*;
 
-import com.example.temufy.GUI.Model.TotalSongs;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -65,8 +62,8 @@ public class TemufyController implements Initializable {
     @FXML
     private TableColumn<Song, String> colSongtitle,colSongArtist,colSongGenre,colSongTime,colPlaylistName,colPlaylistSongs,colPlaylistTime;
 
+    private PlaylistSongModel playlistSongModel;
     private PlaylistModel playlistModel;
-
     private SongModel songModel;
 
     private TotalSongs totalSongs = new TotalSongs();
@@ -79,6 +76,7 @@ public class TemufyController implements Initializable {
         try {
             songModel = new SongModel();
             playlistModel = new PlaylistModel();
+            playlistSongModel = new PlaylistSongModel();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -340,6 +338,25 @@ public class TemufyController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void handleClickSongsInPlaylistAdd(ActionEvent actionEvent) {
+        Song selectedSong = tblSong.getSelectionModel().getSelectedItem();
+        Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
+
+        if (selectedSong == null || selectedPlaylist == null) {
+            displayError(new Exception("Please select a song and a playlist."));
+            return;
+        }
+
+        try {
+            playlistSongModel.addSongToPlaylist(selectedPlaylist, selectedSong);
+            playlistModel.loadSongsForPlaylist(selectedPlaylist);   // refreshes the songs-in-playlist table
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
     @FXML
     private void handleClickEdit(){
 
@@ -354,4 +371,6 @@ public class TemufyController implements Initializable {
 
     public void handleClickSongsInPlaylistDelete(ActionEvent actionEvent) {
     }
+
+
 }

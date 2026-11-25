@@ -3,6 +3,7 @@ package com.example.temufy.DAL;
 import com.example.temufy.BE.Playlist;
 import com.example.temufy.BE.Song;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface IPlaylistDataAccess {
@@ -17,5 +18,6 @@ public interface IPlaylistDataAccess {
     void updatePlaylist(Playlist playlist) throws Exception;
 
     void deletePlaylist(Playlist playlist) throws Exception;
+
 
 }
