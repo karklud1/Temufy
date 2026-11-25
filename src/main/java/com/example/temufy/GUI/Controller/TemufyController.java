@@ -6,17 +6,15 @@ import com.example.temufy.GUI.Application;
 import com.example.temufy.GUI.Model.PlaylistModel;
 import com.example.temufy.GUI.Model.SongModel;
 
+import com.example.temufy.GUI.Model.TotalSongs;
+import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -37,6 +35,8 @@ public class TemufyController implements Initializable {
     public Button btnSongsDelete;
     //FXML variables
     @FXML
+    private Label lblTotalSongs;
+    @FXML
     private TextField txtSongSearch;
     @FXML
     private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
@@ -51,6 +51,8 @@ public class TemufyController implements Initializable {
 
     private SongModel songModel;
 
+    private TotalSongs totalSongs;
+
     public TemufyController() {
         try {
             songModel = new SongModel();
@@ -63,11 +65,17 @@ public class TemufyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (songModel != null) {
+            songTableShow();
+            playlistTableShow();
+            totalSongs.totalNumberSongs(lblTotalSongs, songModel);
 
-        songTableShow();
-        playlistTableShow();
+            songModel.getObservableSongs().addListener((ListChangeListener<Song>) change -> {
+                totalSongs.totalNumberSongs(lblTotalSongs, songModel);
+            });
 
-        searchSong();
+            searchSong();
+        }
     }
 
     private void searchSong(){
