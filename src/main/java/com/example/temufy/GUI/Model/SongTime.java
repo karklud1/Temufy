@@ -1,9 +1,5 @@
 package com.example.temufy.GUI.Model;
-
 import com.mpatric.mp3agic.Mp3File;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

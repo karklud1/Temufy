@@ -14,20 +14,9 @@ import java.io.IOException;
 
 public class TemufyController {
     public TextField txtSongSearch;
-    public Button btnSongCreate;
-    public TableView tblPlaylist;
-    public TableColumn colPlaylistName;
-    public TableColumn colPlaylistSongs;
-    public TableColumn colPlaylistTime;
-    public TableView tblSong;
-    public TableColumn colSongtitle;
-    public TableColumn colSongArtist;
-    public TableColumn colSongGenre;
-    public TableColumn colSongTime;
-    public Button btnSongDelete;
-    public Button btnPlaylistNew;
-    public Button btnPlaylistEdit;
-    public Button btnPlaylistDelete;
+    public TableView tblPlaylist, tblSong;
+    public TableColumn colPlaylistName, colPlaylistSongs, colPlaylistTime, colSongtitle, colSongArtist, colSongGenre, colSongTime;
+    public Button btnPlaylistNew, btnPlaylistEdit, btnPlaylistDelete, btnSongDelete, btnSongCreate;
 
     public void handleClickCreate(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew.fxml"));
