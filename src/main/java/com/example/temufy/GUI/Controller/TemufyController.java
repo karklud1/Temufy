@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TemufyController implements Initializable {
-
+    //FXML variables
     @FXML
     private TextField txtSongSearch;
     @FXML
@@ -31,7 +31,7 @@ public class TemufyController implements Initializable {
     private TableView<Song> tblSong,tblPlaylist;
     @FXML
     private TableColumn<Song, String> colSongtitle,colSongArtist,colSongGenre,colSongTime,colPlaylistName,colPlaylistSongs,colPlaylistTime;
-
+    
     private SongModel songModel;
 
     public TemufyController() {
