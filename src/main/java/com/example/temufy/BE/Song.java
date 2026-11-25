@@ -19,11 +19,6 @@ public class Song {
         this.id = id;
     }
 
-    // For new songs (the database creates the id)
-    public Song(String title, String artist, String genre, double time, String filePath) {
-        this(title, artist, genre, time, filePath, 0);
-    }
-
     public int getId() {
         return id;
     }

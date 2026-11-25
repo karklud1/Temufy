@@ -59,7 +59,7 @@ public class AddNewController {
             }
 
             // new song object (the database creates the id)
-            Song newSong = new Song(title, artist, genre, time, selectedFile.getAbsolutePath());
+            Song newSong = new Song(title, artist, genre, time, selectedFile.getAbsolutePath(), 0);
 
             // call model to create the song in the dal
             songModel.createSong(newSong);
