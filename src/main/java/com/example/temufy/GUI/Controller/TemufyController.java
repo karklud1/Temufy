@@ -1,7 +1,9 @@
 package com.example.temufy.GUI.Controller;
 
+import com.example.temufy.BE.Playlist;
 import com.example.temufy.BE.Song;
 import com.example.temufy.GUI.Application;
+import com.example.temufy.GUI.Model.PlaylistModel;
 import com.example.temufy.GUI.Model.SongModel;
 
 import javafx.collections.transformation.SortedList;
@@ -39,15 +41,20 @@ public class TemufyController implements Initializable {
     @FXML
     private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
     @FXML
-    private TableView<Song> tblSong,tblPlaylist;
+    private TableView<Song> tblSong;
+    @FXML
+    private TableView<Playlist> tblPlaylist;
     @FXML
     private TableColumn<Song, String> colSongtitle,colSongArtist,colSongGenre,colSongTime,colPlaylistName,colPlaylistSongs,colPlaylistTime;
+
+    private PlaylistModel playlistModel;
 
     private SongModel songModel;
 
     public TemufyController() {
         try {
             songModel = new SongModel();
+            playlistModel = new PlaylistModel();
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
@@ -56,12 +63,14 @@ public class TemufyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Opsæt kolonner i tableview
-        colSongtitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colSongArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
-        colSongGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        colSongTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
+        songTableShow();
+        playlistTableShow();
+
+        searchSong();
+    }
+
+    private void searchSong(){
         // Lyt til søgefeltet (filtrerer FilteredList'en i modellen)
         txtSongSearch.setDisable(true);
         txtSongSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -81,14 +90,34 @@ public class TemufyController implements Initializable {
                 } else return song.getGenre().toLowerCase().contains(lowerCaseFilter);
             });
         });
+    }
+
+
+    private void songTableShow(){
+
+        // Opsæt kolonner i tableview
+        colSongtitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colSongArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        colSongGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        colSongTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         // Makes the table able to sort
         SortedList<Song> sortedData = new SortedList<>(songModel.getObservableSongs());
         sortedData.comparatorProperty().bind(tblSong.comparatorProperty());
         tblSong.setItems(sortedData);
+    }
 
 
+    private void playlistTableShow(){
+        // playlist table
+        colPlaylistName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colPlaylistSongs.setCellValueFactory(new PropertyValueFactory<>("numberOfSongs"));
+        colPlaylistTime.setCellValueFactory(new PropertyValueFactory<>("totalTime"));
 
+        // Makes the table able to sort
+        SortedList<Playlist> sortedDataPlaylist = new SortedList<>(playlistModel.getObservablePlaylists());
+        sortedDataPlaylist.comparatorProperty().bind(tblPlaylist.comparatorProperty());
+        tblPlaylist.setItems(sortedDataPlaylist);
     }
 
     // Displays error for user when a checked error happens
@@ -101,7 +130,7 @@ public class TemufyController implements Initializable {
 
     // Opens add song window
     @FXML
-    private void handleClickCreate(ActionEvent actionEvent) throws IOException {
+    private void handleClickSongsCreate(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 520, 400);
 
@@ -129,7 +158,7 @@ public class TemufyController implements Initializable {
 
      // Deletes selected song
     @FXML
-    private void handleClickDeleteSong(ActionEvent actionEvent) throws Exception {
+    private void handleClickSongsDelete(ActionEvent actionEvent) throws Exception {
         Song selectedSong = tblSong.getSelectionModel().getSelectedItem();
 
         if (selectedSong != null) {
@@ -140,6 +169,7 @@ public class TemufyController implements Initializable {
             }
         }
     }
+
     @FXML
     private void handleClickSearch(ActionEvent actionEvent) throws Exception{
         if ("Filter".equals(btnSearch.getText())) {
@@ -161,5 +191,14 @@ public class TemufyController implements Initializable {
     @FXML
     private void handleClickDeletePlaylist(){
 
+    }
+
+    public void handleClickSongsEdit(ActionEvent actionEvent) {
+    }
+
+    public void handleClickSongsInPlaylistAdd(ActionEvent actionEvent) {
+    }
+
+    public void handleClickSongsInPlaylistDelete(ActionEvent actionEvent) {
     }
 }
