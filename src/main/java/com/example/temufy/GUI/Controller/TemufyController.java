@@ -27,7 +27,7 @@ public class TemufyController implements Initializable {
     @FXML
     private TextField txtSongSearch;
     @FXML
-    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
+    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch;
     @FXML
     private TableView<Song> tblSong,tblPlaylist;
     @FXML
@@ -78,8 +78,6 @@ public class TemufyController implements Initializable {
         sortedData.comparatorProperty().bind(tblSong.comparatorProperty());
         tblSong.setItems(sortedData);
 
-        btnClear.setVisible(false);
-        btnClear.setManaged(false);
     }
 
     // Displays error for user when a checked error happens
@@ -124,8 +122,6 @@ public class TemufyController implements Initializable {
         txtSongSearch.setVisible(true);
         btnSearch.setVisible(false);
         btnSearch.setManaged(false);
-        btnClear.setVisible(true);
-        btnClear.setManaged(true);
     }
     @FXML
     private void handleClickClear(){
@@ -134,8 +130,6 @@ public class TemufyController implements Initializable {
         txtSongSearch.setVisible(false);
         btnSearch.setVisible(true);
         btnSearch.setManaged(true);
-        btnClear.setVisible(false);
-        btnClear.setManaged(false);
 
     }
     @FXML
