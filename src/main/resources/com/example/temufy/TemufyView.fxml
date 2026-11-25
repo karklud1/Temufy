@@ -110,7 +110,7 @@
                   </TableView>
                   <HBox spacing="8.0">
                      <children>
-                          <Button fx:id="btncolSongsInPlayllistAdd" mnemonicParsing="false" onAction="#handleClickCreate" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Add Song" />
+                          <Button fx:id="btncolSongsInPlayllistAdd" mnemonicParsing="false" onAction="#handleClickCreate2" prefHeight="26.0" prefWidth="81.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Add Song" />
                         <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↑" />
                         <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↓" />
                         <Region prefHeight="26.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
@@ -160,7 +160,7 @@
             </TableView>
             <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="200.0" spacing="8.0">
                <children>
-                  <Button fx:id="btnSongsNew" mnemonicParsing="false" prefHeight="20.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="New" />
+                  <Button fx:id="btnSongsNew" mnemonicParsing="false" onAction="#handleClickCreate" prefHeight="20.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="New" />
                   <Button fx:id="btnSongsEdit" mnemonicParsing="false" prefHeight="20.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Edit" />
                   <Region prefHeight="25.0" prefWidth="247.0" />
                   <Button fx:id="btnSongsDelete" mnemonicParsing="false" prefHeight="20.0" prefWidth="54.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />

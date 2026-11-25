@@ -63,8 +63,7 @@ public class TemufyController implements Initializable {
         colSongTime.setCellValueFactory(new PropertyValueFactory<>("time"));
 
         // Lyt til søgefeltet (filtrerer FilteredList'en i modellen)
-        txtSongSearch.setVisible(false);
-        txtSongSearch.setManaged(false);
+        txtSongSearch.setDisable(true);
         txtSongSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             songModel.getObservableSongs().setPredicate(song -> {
 
@@ -114,6 +113,19 @@ public class TemufyController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    @FXML
+    private void handleClickCreate2(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew2.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 520, 400);
+
+        AddNewController2 controller = fxmlLoader.getController();
+        controller.setModel(songModel);
+
+        Stage stage = new Stage();
+        stage.setTitle("Add Song");
+        stage.setScene(scene);
+        stage.show();
+    }
 
      // Deletes selected song
     @FXML
@@ -129,24 +141,14 @@ public class TemufyController implements Initializable {
         }
     }
     @FXML
-    private void handleClickSearch(){
-        txtSongSearch.setManaged(true);
-        txtSongSearch.setVisible(true);
-        btnSearch.setVisible(false);
-        btnSearch.setManaged(false);
-        btnClear.setVisible(true);
-        btnClear.setManaged(true);
-    }
-    @FXML
-    private void handleClickClear(){
-        txtSongSearch.clear();
-        txtSongSearch.setManaged(false);
-        txtSongSearch.setVisible(false);
-        btnSearch.setVisible(true);
-        btnSearch.setManaged(true);
-        btnClear.setVisible(false);
-        btnClear.setManaged(false);
-
+    private void handleClickSearch(ActionEvent actionEvent) throws Exception{
+        if ("Filter".equals(btnSearch.getText())) {
+            txtSongSearch.setDisable(false);
+            btnSearch.setText("Clear");
+        } else if ("Clear".equals(btnSearch.getText())) {
+            txtSongSearch.setDisable(true);
+            btnSearch.setText("Filter");
+        }
     }
     @FXML
     private void handleClickNewPlaylist(){

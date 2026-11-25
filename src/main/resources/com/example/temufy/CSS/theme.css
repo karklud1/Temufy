@@ -148,3 +148,91 @@
     -fx-text-fill: #8E8E98;
     -fx-font-size: 11px;
 }
+/* Dialog / Popup Background */
+.dialog-root {
+    -fx-background-color: #161619;
+    -fx-border-color: #28282D;
+    -fx-border-width: 1px;
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+/* Dialog Title ("New Song") */
+.dialog-title {
+    -fx-text-fill: #E5B84B;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* Field Labels ("Title", "Artist", "Genre", "Time", "File") */
+.field-label {
+    -fx-text-fill: #8E8E98;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Standard Secondary Buttons ("Cancel", "Choose...") */
+.btn-secondary {
+    -fx-background-color: #222226;
+    -fx-text-fill: #F2F2F3;
+    -fx-background-radius: 8;
+    -fx-border-color: #28282D;
+    -fx-border-radius: 8;
+    -fx-padding: 6 16 6 16;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #2D2D33;
+    -fx-border-color: #E5B84B;
+}
+
+/* Primary Action Button ("Save") */
+.btn-primary {
+    -fx-background-color: #D92638;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 6 20 6 20;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #EF3346;
+}
+
+/* Genre ChoiceBox (Matches cboxGenre in AddNewController) */
+.choice-box {
+    -fx-background-color: #0E0E10;
+    -fx-border-color: #28282D;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 2 6 2 6;
+}
+
+.choice-box > .label {
+    -fx-text-fill: #F2F2F3;
+}
+
+.choice-box .open-button .arrow {
+    -fx-background-color: #E5B84B;
+}
+
+/* ChoiceBox Dropdown Popup Menu */
+.choice-box .context-menu {
+    -fx-background-color: #161619;
+    -fx-border-color: #28282D;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.choice-box .menu-item > .label {
+    -fx-text-fill: #F2F2F3;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #261F14;
+}
+
+.choice-box .menu-item:focused > .label {
+    -fx-text-fill: #E5B84B;
+}
