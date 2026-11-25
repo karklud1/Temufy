@@ -18,4 +18,8 @@ public class PlaylistSongManager {
     public void removeSongFromPlaylist(int playlistId, int songId) throws Exception {
         playlistDAO.removeSongFromPlaylist(playlistId, songId);
     }
+
+    public void moveSongUp(int playlistId, int position) throws Exception {
+        playlistDAO.moveSongUp(playlistId, position);
+    }
 }

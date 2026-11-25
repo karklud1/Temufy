@@ -20,4 +20,8 @@ public class PlaylistSongModel {
     public void removeSongFromPlaylist(Playlist playlist, Song song) throws Exception {
         playlistSongManager.removeSongFromPlaylist(playlist.getId(), song.getId());
     }
+
+    public void moveSongUp(Playlist playlist, int position) throws Exception {
+        playlistSongManager.moveSongUp(playlist.getId(), position);
+    }
 }

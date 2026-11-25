@@ -66,4 +66,29 @@ public class PlaylistSongDAO_DB implements IPlaylistSongDataAccess {
             }
         }
     }
+
+    @Override
+    public void moveSongUp(int playlistId, int position) throws SQLException {
+
+        if (position <= 1) {
+            return;   // already first, nothing to move
+        }
+
+        String sql = "UPDATE PlaylistSong " +
+                "SET Position = CASE Position WHEN ? THEN ? WHEN ? THEN ? END " +
+                "WHERE PlaylistId = ? AND Position IN (?, ?)";
+
+        try (Connection conn = dbConnector.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, position);
+            stmt.setInt(2, position - 1);
+            stmt.setInt(3, position - 1);
+            stmt.setInt(4, position);
+            stmt.setInt(5, playlistId);
+            stmt.setInt(6, position);
+            stmt.setInt(7, position - 1);
+            stmt.executeUpdate();
+        }
+    }
 }

@@ -110,7 +110,7 @@
                   </TableView>
                   <HBox spacing="8.0">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↑" />
+                        <Button mnemonicParsing="false" onAction="#handleClickSongsInPlaylistUp" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↑" />
                         <Button mnemonicParsing="false" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8;" text="↓" />
                         <Region prefHeight="26.0" prefWidth="53.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#handleClickSongsInPlaylistDelete" prefHeight="20.0" prefWidth="60.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />

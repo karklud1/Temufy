@@ -52,7 +52,7 @@ public class PlaylistDAO_DB implements IPlaylistDataAccess {
     public List<Song> getSongsForPlaylist(int playlistId) throws Exception {
         String sql = "SELECT s.Id, s.Title, s.Artist, s.Genre, s.[Time], s.FilePath " +
                 "FROM Song s INNER JOIN PlaylistSong ps ON ps.SongId = s.Id " +
-                "WHERE ps.PlaylistId = ? ORDER BY ps.Id";
+                "WHERE ps.PlaylistId = ? ORDER BY ps.Position";
 
         List<Song> songs = new ArrayList<>();
 

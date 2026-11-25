@@ -8,4 +8,6 @@ public interface IPlaylistSongDataAccess {
     void addSongToPlaylist(int playlistId, int songId) throws SQLException;
 
     void removeSongFromPlaylist(int playlistId, int songId) throws Exception;
+
+    void moveSongUp(int playlistId, int position) throws Exception;
 }
