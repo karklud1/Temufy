@@ -70,12 +70,13 @@ public class TemufyController implements Initializable {
             });
         });
 
-        // Gør tabellen sorterbar ved klik på kolonneoverskrifter
+        // Makes the table able to sort
         SortedList<Song> sortedData = new SortedList<>(songModel.getObservableSongs());
         sortedData.comparatorProperty().bind(tblSong.comparatorProperty());
         tblSong.setItems(sortedData);
     }
 
+    // Displays error for user when a checked error happens
     private void displayError(Throwable t) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Something went wrong");
@@ -83,15 +84,12 @@ public class TemufyController implements Initializable {
         alert.showAndWait();
     }
 
-    /**
-     * Åbner "Add Song"-vinduet
-     */
+    // Opens add song window
     @FXML
     private void handleClickCreate(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/AddNew.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 520, 400);
 
-        // Send den samme model med til AddNew-controlleren, så tabellen opdateres
         AddNewController controller = fxmlLoader.getController();
         controller.setModel(songModel);
 
@@ -101,15 +99,17 @@ public class TemufyController implements Initializable {
         stage.show();
     }
 
-    /**
-     * Sletter den valgte sang
-     */
+     // Deletes selected song
     @FXML
     private void handleClickDelete(ActionEvent actionEvent) throws Exception {
         Song selectedSong = tblSong.getSelectionModel().getSelectedItem();
 
         if (selectedSong != null) {
-            songModel.deleteSong(selectedSong);
+            try {
+                songModel.deleteSong(selectedSong);
+            } catch (Exception err) {
+                displayError(err);
+            }
         }
     }
 }
