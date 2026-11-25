@@ -22,4 +22,8 @@ public class PlaylistSongManager {
     public void moveSongUp(int playlistId, int position) throws Exception {
         playlistDAO.moveSongUp(playlistId, position);
     }
+
+    public void moveSongDown(int playlistId, int position) throws Exception {
+        playlistDAO.moveSongDown(playlistId, position);
+    }
 }

@@ -399,6 +399,29 @@ public class TemufyController implements Initializable {
     }
 
     @FXML
+    private void handleClickSongsInPlaylistDown(ActionEvent actionEvent) {
+        Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
+        int index = tblSongsInPlayllist.getSelectionModel().getSelectedIndex();
+
+        if (selectedPlaylist == null || index < 0) {
+            displayError(new Exception("Please select a playlist and a song in it."));
+            return;
+        }
+
+        if (index == tblSongsInPlayllist.getItems().size() - 1) {
+            return;   // already last
+        }
+
+        try {
+            playlistSongModel.moveSongDown(selectedPlaylist, index + 1);   // position = index + 1
+            playlistModel.loadSongsForPlaylist(selectedPlaylist);          // refresh the table
+            tblSongsInPlayllist.getSelectionModel().select(index + 1);     // keep the moved song selected
+        } catch (Exception e) {
+            displayError(e);
+        }
+    }
+
+    @FXML
     private void handleClickEdit(){
 
     }

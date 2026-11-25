@@ -24,4 +24,8 @@ public class PlaylistSongModel {
     public void moveSongUp(Playlist playlist, int position) throws Exception {
         playlistSongManager.moveSongUp(playlist.getId(), position);
     }
+
+    public void moveSongDown(Playlist playlist, int position) throws Exception {
+        playlistSongManager.moveSongDown(playlist.getId(), position);
+    }
 }

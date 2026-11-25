@@ -10,4 +10,6 @@ public interface IPlaylistSongDataAccess {
     void removeSongFromPlaylist(int playlistId, int songId) throws Exception;
 
     void moveSongUp(int playlistId, int position) throws Exception;
+
+    void moveSongDown(int playlistId, int position) throws Exception;
 }
