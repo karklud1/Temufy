@@ -24,21 +24,11 @@ public class AddNewController {
 
     //FXML variables
     @FXML
-    private TextField txtTitle;
-    @FXML
-    private TextField txtArtist;
+    private TextField txtTitle,txtArtist,txtTime,txtFile;
     @FXML
     private ChoiceBox<String> cboxGenre;
     @FXML
-    private TextField txtTime;
-    @FXML
-    private TextField txtFile;
-    @FXML
-    private Button btnFile;
-    @FXML
-    private Button btnCancel;
-    @FXML
-    private Button btnSave;
+    private Button btnFile,btnCancel,btnSave;
 
     @FXML
     public void initialize(){
