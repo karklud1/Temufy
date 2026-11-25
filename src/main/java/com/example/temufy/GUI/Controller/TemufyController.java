@@ -23,11 +23,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TemufyController implements Initializable {
+    public TableView tblSongsInPlayllist;
+    public TableColumn colSongsInPlayllisttitle;
+    public TableColumn colSongsInPlayllistArtist;
+    public TableColumn colSongsInPlayllistGenre;
+    public TableColumn colSongsInPlayllistTime;
+    public Button btncolSongsInPlayllistAdd;
+    public Button btncolSongsInPlayllistDelete;
+    public Button btnSongsNew;
+    public Button btnSongsEdit;
+    public Button btnSongsDelete;
     //FXML variables
     @FXML
     private TextField txtSongSearch;
     @FXML
-    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch;
+    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
     @FXML
     private TableView<Song> tblSong,tblPlaylist;
     @FXML
@@ -78,6 +88,8 @@ public class TemufyController implements Initializable {
         sortedData.comparatorProperty().bind(tblSong.comparatorProperty());
         tblSong.setItems(sortedData);
 
+
+
     }
 
     // Displays error for user when a checked error happens
@@ -122,6 +134,8 @@ public class TemufyController implements Initializable {
         txtSongSearch.setVisible(true);
         btnSearch.setVisible(false);
         btnSearch.setManaged(false);
+        btnClear.setVisible(true);
+        btnClear.setManaged(true);
     }
     @FXML
     private void handleClickClear(){
@@ -130,6 +144,8 @@ public class TemufyController implements Initializable {
         txtSongSearch.setVisible(false);
         btnSearch.setVisible(true);
         btnSearch.setManaged(true);
+        btnClear.setVisible(false);
+        btnClear.setManaged(false);
 
     }
     @FXML

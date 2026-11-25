@@ -1,7 +1,6 @@
 package com.example.temufy.BLL;
 
 import com.example.temufy.BE.Playlist;
-import com.example.temufy.BLL.util.PlaylistSearcher;
 import com.example.temufy.DAL.IPlaylistDataAccess;
 import com.example.temufy.DAL.db.PlaylistDAO_DB;
 
@@ -10,7 +9,6 @@ import java.util.List;
 
 public class PlaylistManager {
 
-    private PlaylistSearcher playlistSearcher = new PlaylistSearcher();
     private IPlaylistDataAccess playlistDAO;
 
     public PlaylistManager() throws IOException {
@@ -19,11 +17,6 @@ public class PlaylistManager {
 
     public List<Playlist> getAllPlaylists() throws Exception {
         return playlistDAO.getAllPlaylists();
-    }
-
-    public List<Playlist> searchPlaylist(String query) throws Exception {
-        List<Playlist> allPlaylists = getAllPlaylists();
-        return playlistSearcher.search(allPlaylists, query);
     }
 
     public Playlist createPlaylist(Playlist playlist) throws Exception {
