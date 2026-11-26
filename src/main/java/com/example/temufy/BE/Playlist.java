@@ -24,6 +24,7 @@ public class Playlist {
     public int getId(){
         return id;
     }
+    public void setName(String name) { this.name = name; }
 
     // The playlist table asks for "totalTimeFormatted", so 454 shows as 00:07:34
     public String getTotalTimeFormatted() {
