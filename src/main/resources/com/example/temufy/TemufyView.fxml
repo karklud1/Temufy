@@ -143,7 +143,7 @@
                <children>
                   <Label style="-fx-text-fill: #E5B84B; -fx-font-size: 11px; -fx-font-weight: bold;" text="ALL SONGS" />
                   <Region prefHeight="0.0" prefWidth="315.0" HBox.hgrow="ALWAYS" />
-                  <Label style="-fx-text-fill: #8E8E98; -fx-font-size: 12px;" text="20 Songs" />
+                  <Label fx:id="lblTotalSongs" style="-fx-text-fill: #8E8E98; -fx-font-size: 12px;" text="20 Songs" />
                </children>
             </HBox>
             <TableView fx:id="tblSong" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
