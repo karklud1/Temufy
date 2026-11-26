@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class NewPlaylistController {
 
     private PlaylistModel playlistModel;
+    private Playlist playlistToEdit;
 
     @FXML
     private TextField txtName;
@@ -19,6 +20,12 @@ public class NewPlaylistController {
     // The main window passes its playlist model, so the new row shows up in the same table
     public void setModel(PlaylistModel playlistModel) {
         this.playlistModel = playlistModel;
+    }
+
+    // Called by the main window when the user presses Edit
+    public void setPlaylistToEdit(Playlist playlist) {
+        this.playlistToEdit = playlist;
+        txtName.setText(playlist.getName());   // show the current name
     }
 
     // Saves a playlist with no songs yet. The database makes the id.
@@ -30,7 +37,12 @@ public class NewPlaylistController {
                 throw new Exception("Please enter a name.");
             }
 
-            playlistModel.createPlaylist(new Playlist(0, name, 0, 0));
+            if (playlistToEdit == null) {
+                playlistModel.createPlaylist(new Playlist(0, name, 0, 0));
+            } else {
+                playlistToEdit.setName(name);
+                playlistModel.updatePlaylist(playlistToEdit);
+            }
 
             Stage stage = (Stage) txtName.getScene().getWindow();
             stage.close();
