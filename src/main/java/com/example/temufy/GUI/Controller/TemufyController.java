@@ -291,7 +291,7 @@ public class TemufyController implements Initializable {
         controller.setModel(songModel);
 
         Stage stage = new Stage();
-        stage.setTitle("Edit Song");
+        stage.setTitle("Add Song");
         stage.setScene(scene);
         stage.show();
     }
@@ -426,17 +426,8 @@ public class TemufyController implements Initializable {
 
     }
     @FXML
-    private void handleClickDeletePlaylist() {
+    private void handleClickDeletePlaylist(){
 
-        Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
-
-        if (selectedPlaylist != null) {
-            try {
-                playlistModel.deletePlaylist(selectedPlaylist);
-            } catch (Exception err) {
-                displayError(err);
-            }
-        }
     }
 
     public void handleClickSongsEdit(ActionEvent actionEvent) {
