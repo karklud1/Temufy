@@ -321,7 +321,7 @@ public class TemufyController implements Initializable {
     }
     // Opens the small window where the user types a playlist name
     @FXML
-    private void handleClickNewPlaylist() throws IOException {
+    private void handleClickPlaylistNew() throws IOException {
         if (playlistModel == null) {
             displayError(new Exception("Playlists could not be loaded."));
             return;
@@ -422,14 +422,13 @@ public class TemufyController implements Initializable {
     }
 
     @FXML
-    private void handleClickEdit(){
-
-    }
-    @FXML
-    private void handleClickDeletePlaylist(){
-
+    private void handleClickPlaylistEdit(ActionEvent actionEvent){
+        
     }
 
     public void handleClickSongsEdit(ActionEvent actionEvent) {
+    }
+
+    public void handleClickDeletePlaylist(ActionEvent actionEvent) {
     }
 }

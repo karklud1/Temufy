@@ -70,7 +70,7 @@
                     </TableView>
                   <HBox prefHeight="27.0" prefWidth="380.0" spacing="8.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#handleClickNewPlaylist" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="New playlist">
+                        <Button mnemonicParsing="false" onAction="#handleClickPlaylistNew" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="New playlist">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
@@ -78,7 +78,7 @@
                               <Insets left="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" onAction="#handleClickEdit" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Edit" />
+                        <Button mnemonicParsing="false" onAction="#handleClickPlaylistEdit" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Edit" />
                         <Region prefHeight="27.0" prefWidth="34.0" HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" onAction="#handleClickDeletePlaylist" prefHeight="20.0" prefWidth="60.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />
                      </children>
