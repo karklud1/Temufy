@@ -27,6 +27,7 @@ public class AddNewController {
 
     // Keep a reference to the model (same instance as the main window)
     private SongModel songModel;
+    private Song songToEdit;
 
     @FXML
     private TextField txtTitle, txtArtist, txtTime, txtFile;
@@ -55,32 +56,34 @@ public class AddNewController {
     @FXML
     public void handleClickSave(ActionEvent actionEvent) {
         try {
-            // get user song data from UI
             String title = txtTitle.getText().trim();
             String artist = txtArtist.getText().trim();
             String genre = cboxGenre.getValue();
-            double time = parseTime(txtTime.getText());
 
             if (title.isEmpty() || artist.isEmpty()) {
                 throw new Exception("Please enter a title and an artist.");
-            }
-            if (selectedFile == null) {
-                throw new Exception("Please choose an audio file.");
             }
             if (genre == null || genre.equals("Genre...")) {
                 genre = null;   // Genre is optional in the database
             }
 
-            // copy the file into the mp3 folder, store only the relative path (mp3/song.mp3)
-            String relativePath = copyToMp3Folder(selectedFile);
+            if (songToEdit == null) {
+                // CREATE: same as before
+                double time = parseTime(txtTime.getText());
+                if (selectedFile == null) {
+                    throw new Exception("Please choose an audio file.");
+                }
+                String relativePath = copyToMp3Folder(selectedFile);
+                Song newSong = new Song(title, artist, genre, time, relativePath, 0);
+                songModel.createSong(newSong);
+            } else {
+                // EDIT: only text fields change, no copying of the mp3
+                songToEdit.setTitle(title);
+                songToEdit.setArtist(artist);
+                songToEdit.setGenre(genre);
+                songModel.updateSong(songToEdit);
+            }
 
-            // new song object (id = 0, the database creates the real id)
-            Song newSong = new Song(title, artist, genre, time, relativePath, 0);
-
-            // call model to create the song in the dal
-            songModel.createSong(newSong);
-
-            // close the window
             Stage stage = (Stage) btnSave.getScene().getWindow();
             stage.close();
         }
@@ -115,6 +118,27 @@ public class AddNewController {
             txtFile.setText(selectedFile.getName());
             songTime.songTime(selectedFile, txtTime, txtTitle);
         }
+    }
+
+    // Called by the main window when the user presses Edit
+    public void setSongToEdit(Song song) {
+        this.songToEdit = song;
+
+        txtTitle.setText(song.getTitle());
+        txtArtist.setText(song.getArtist());
+
+        // time is stored in seconds, the field shows m:ss
+        int totalSeconds = (int) Math.round(song.getTime());
+        txtTime.setText(String.format("%d:%02d", totalSeconds / 60, totalSeconds % 60));
+
+        String genre = song.getGenre();
+        cboxGenre.setValue(genre == null ? "Genre..." : genre);
+
+        // the file and time stay as they are in edit mode
+        txtFile.setText(song.getFilePath());
+        txtFile.setDisable(true);
+        txtTime.setDisable(true);
+        btnFile.setDisable(true);
     }
 
     /**
