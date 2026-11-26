@@ -24,39 +24,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TemufyController implements Initializable {
-    public TableView tblSongsInPlayllist;
-    public TableColumn colSongsInPlayllisttitle;
-    public TableColumn colSongsInPlayllistArtist;
-    public TableColumn colSongsInPlayllistGenre;
-    public TableColumn colSongsInPlayllistTime;
-    public Button btncolSongsInPlayllistAdd;
-    public Button btncolSongsInPlayllistDelete;
-    public Button btnSongsNew;
-    public Button btnSongsEdit;
-    public Button btnSongsDelete;
-    //FXML variables
+
     @FXML
-    private Label lblTotalSongs;
+    public TableColumn colSongsInPlaylistTitle, colSongsInPlaylistArtist, colSongsInPlaylistGenre, colSongsInPlaylistTime;
     @FXML
-    private Label lblSongTitle;
-    @FXML
-    private Label lblSongArtist;
-    @FXML
-    private Label lblTimeCurrent;
-    @FXML
-    private Label lblTimeTotal;
+    private Label lblTotalSongs, lblSongTitle, lblSongArtist, lblTimeCurrent, lblTimeTotal;
     @FXML
     private TextField txtSongSearch;
     @FXML
-    private Slider sldSongProgress;
+    private Slider sldSongProgress, sldVolume;
     @FXML
-    private Slider sldVolume;
+    private Button btnPrevSong, btnPlayAndPause, btnNextSong, btnColSongsInPlaylistAdd, btnColSongsInPlaylistDelete, btnSongsNew, btnSongsEdit, btnSongsDelete, btnSongCreate, btnSongDelete, btnPlaylistNew, btnPlaylistEdit, btnPlaylistDelete, btnSearch, btnClear;
     @FXML
-    private Button btnPrevSong, btnPlayAndPause, btnNextSong;
-    @FXML
-    private Button btnSongCreate,btnSongDelete,btnPlaylistNew,btnPlaylistEdit,btnPlaylistDelete,btnSearch,btnClear;
-    @FXML
-    private TableView<Song> tblSong;
+    private TableView<Song> tblSong, tblSongsInPlaylist;
     @FXML
     private TableView<Playlist> tblPlaylist;
     @FXML
@@ -96,6 +76,17 @@ public class TemufyController implements Initializable {
 
             searchSong();
             setupPlayer();
+
+            // Prevents reordering of columns
+            tblSong.getColumns().forEach(column -> column.setReorderable(false));
+            tblPlaylist.getColumns().forEach(column -> column.setReorderable(false));
+            tblSongsInPlaylist.getColumns().forEach(column -> column.setReorderable(false));
+
+            // Prevents resizing of columns
+            tblSong.getColumns().forEach(column -> column.setResizable(false));
+            tblPlaylist.getColumns().forEach(column -> column.setResizable(false));
+            tblSongsInPlaylist.getColumns().forEach(column -> column.setResizable(false));
+
         }
     }
 
@@ -151,11 +142,11 @@ public class TemufyController implements Initializable {
         sortedDataPlaylist.comparatorProperty().bind(tblPlaylist.comparatorProperty());
         tblPlaylist.setItems(sortedDataPlaylist);
 
-        colSongsInPlayllisttitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colSongsInPlayllistArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
-        colSongsInPlayllistGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
-        colSongsInPlayllistTime.setCellValueFactory(new PropertyValueFactory<>("timeFormatted"));
-        tblSongsInPlayllist.setItems(playlistModel.getSongsInPlaylist());
+        colSongsInPlaylistTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colSongsInPlaylistArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
+        colSongsInPlaylistGenre.setCellValueFactory(new PropertyValueFactory<>("genre"));
+        colSongsInPlaylistTime.setCellValueFactory(new PropertyValueFactory<>("timeFormatted"));
+        tblSongsInPlaylist.setItems(playlistModel.getSongsInPlaylist());
 
         tblPlaylist.getSelectionModel().selectedItemProperty().addListener((obs, oldPlaylist, selectedPlaylist) -> {
             try {
@@ -186,11 +177,11 @@ public class TemufyController implements Initializable {
             return row;
         });
 
-        tblSongsInPlayllist.setRowFactory(table -> {
+        tblSongsInPlaylist.setRowFactory(table -> {
             TableRow<Song> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && row.getItem() instanceof Song song) {
-                    playSelected(song, tblSongsInPlayllist.getItems(), true);
+                    playSelected(song, tblSongsInPlaylist.getItems(), true);
                 }
             });
             return row;
@@ -361,7 +352,7 @@ public class TemufyController implements Initializable {
 
     @FXML
     private void handleClickSongsInPlaylistDelete(ActionEvent actionEvent) {
-        Song selectedSong = (Song) tblSongsInPlayllist.getSelectionModel().getSelectedItem();
+        Song selectedSong = (Song) tblSongsInPlaylist.getSelectionModel().getSelectedItem();
         Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
 
         if (selectedSong == null || selectedPlaylist == null) {
@@ -381,7 +372,7 @@ public class TemufyController implements Initializable {
     @FXML
     private void handleClickSongsInPlaylistUp(ActionEvent actionEvent) {
         Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
-        int index = tblSongsInPlayllist.getSelectionModel().getSelectedIndex();
+        int index = tblSongsInPlaylist.getSelectionModel().getSelectedIndex();
 
         if (selectedPlaylist == null || index < 0) {
             displayError(new Exception("Please select a playlist and a song in it."));
@@ -395,7 +386,7 @@ public class TemufyController implements Initializable {
         try {
             playlistSongModel.moveSongUp(selectedPlaylist, index + 1);   // position = index + 1
             playlistModel.loadSongsForPlaylist(selectedPlaylist);        // refresh the table
-            tblSongsInPlayllist.getSelectionModel().select(index - 1);   // keep the moved song selected
+            tblSongsInPlaylist.getSelectionModel().select(index - 1);   // keep the moved song selected
         } catch (Exception e) {
             displayError(e);
         }
@@ -404,21 +395,21 @@ public class TemufyController implements Initializable {
     @FXML
     private void handleClickSongsInPlaylistDown(ActionEvent actionEvent) {
         Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
-        int index = tblSongsInPlayllist.getSelectionModel().getSelectedIndex();
+        int index = tblSongsInPlaylist.getSelectionModel().getSelectedIndex();
 
         if (selectedPlaylist == null || index < 0) {
             displayError(new Exception("Please select a playlist and a song in it."));
             return;
         }
 
-        if (index == tblSongsInPlayllist.getItems().size() - 1) {
+        if (index == tblSongsInPlaylist.getItems().size() - 1) {
             return;   // already last
         }
 
         try {
             playlistSongModel.moveSongDown(selectedPlaylist, index + 1);   // position = index + 1
             playlistModel.loadSongsForPlaylist(selectedPlaylist);          // refresh the table
-            tblSongsInPlayllist.getSelectionModel().select(index + 1);     // keep the moved song selected
+            tblSongsInPlaylist.getSelectionModel().select(index + 1);     // keep the moved song selected
         } catch (Exception e) {
             displayError(e);
         }
