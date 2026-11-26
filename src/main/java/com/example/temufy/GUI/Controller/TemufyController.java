@@ -437,6 +437,25 @@ public class TemufyController implements Initializable {
     public void handleClickSongsEdit(ActionEvent actionEvent) {
     }
 
-    public void handleClickPlaylistEdit(ActionEvent actionEvent) {
+    @FXML
+    private void handleClickPlaylistEdit(ActionEvent actionEvent) throws IOException {
+        Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
+
+        if (selectedPlaylist == null) {
+            displayError(new Exception("Please select a playlist to edit."));
+            return;
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/com/example/temufy/NewPlaylist.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 420, 220);
+
+        NewPlaylistController controller = fxmlLoader.getController();
+        controller.setModel(playlistModel);
+        controller.setPlaylistToEdit(selectedPlaylist);
+
+        Stage stage = new Stage();
+        stage.setTitle("Edit playlist");
+        stage.setScene(scene);
+        stage.show();
     }
 }
