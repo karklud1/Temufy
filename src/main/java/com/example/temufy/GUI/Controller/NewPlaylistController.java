@@ -5,6 +5,7 @@ import com.example.temufy.GUI.Model.PlaylistModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -17,6 +18,9 @@ public class NewPlaylistController {
     @FXML
     private TextField txtName;
 
+    @FXML
+    private Label lblPlaylist;
+
     // The main window passes its playlist model, so the new row shows up in the same table
     public void setModel(PlaylistModel playlistModel) {
         this.playlistModel = playlistModel;
@@ -25,7 +29,8 @@ public class NewPlaylistController {
     // Called by the main window when the user presses Edit
     public void setPlaylistToEdit(Playlist playlist) {
         this.playlistToEdit = playlist;
-        txtName.setText(playlist.getName());   // show the current name
+        txtName.setText(playlist.getName());
+        lblPlaylist.setText("Edit playlist");
     }
 
     // Saves a playlist with no songs yet. The database makes the id.

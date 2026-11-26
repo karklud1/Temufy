@@ -12,7 +12,7 @@
    <children>
       <VBox layoutX="24.0" layoutY="24.0" spacing="8.0">
          <children>
-            <Label styleClass="dialog-title" text="New playlist" />
+            <Label fx:id="lblPlaylist" styleClass="dialog-title" text="New playlist" />
             <Label styleClass="field-label" text="Name" />
             <TextField fx:id="txtName" prefHeight="30.0" prefWidth="360.0" promptText="My playlist" />
          </children>

@@ -5,13 +5,11 @@ import com.example.temufy.GUI.Model.SongModel;
 import com.example.temufy.GUI.Model.SongTime;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,6 +33,8 @@ public class AddNewController {
     private ChoiceBox<String> cboxGenre;
     @FXML
     private Button btnFile, btnCancel, btnSave;
+    @FXML
+    private Label lblSong;
 
     /**
      * Called by TemufyController right after the window is loaded
@@ -123,6 +123,8 @@ public class AddNewController {
     // Called by the main window when the user presses Edit
     public void setSongToEdit(Song song) {
         this.songToEdit = song;
+
+        lblSong.setText("Edit song");
 
         txtTitle.setText(song.getTitle());
         txtArtist.setText(song.getArtist());

@@ -56,7 +56,7 @@
             </Label>
          </children>
       </VBox>
-      <Label layoutX="14.0" layoutY="28.0" styleClass="dialog-title" text="New Song" textFill="WHITE">
+      <Label fx:id="lblSong" layoutX="14.0" layoutY="28.0" styleClass="dialog-title" text="New Song" textFill="WHITE">
          <font>
             <Font size="36.0" />
          </font>
