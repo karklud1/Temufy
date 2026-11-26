@@ -351,7 +351,9 @@ public class TemufyController implements Initializable {
 
         try {
             playlistSongModel.addSongToPlaylist(selectedPlaylist, selectedSong);
-            playlistModel.loadSongsForPlaylist(selectedPlaylist);   // refreshes the songs-in-playlist table
+            playlistModel.loadSongsForPlaylist(selectedPlaylist);// refreshes the songs-in-playlist table
+            tblPlaylist.refresh();;
+
         } catch (Exception e) {
             displayError(e);
         }
@@ -370,6 +372,7 @@ public class TemufyController implements Initializable {
         try {
             playlistSongModel.removeSongFromPlaylist(selectedPlaylist, selectedSong);
             playlistModel.loadSongsForPlaylist(selectedPlaylist);   // refreshes the songs-in-playlist table
+            tblPlaylist.refresh();
         } catch (Exception e) {
             displayError(e);
         }
