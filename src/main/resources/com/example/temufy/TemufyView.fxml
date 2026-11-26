@@ -80,7 +80,7 @@
                         </Button>
                         <Button mnemonicParsing="false" onAction="#handleClickPlaylistEdit" prefHeight="25.0" prefWidth="52.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Edit" />
                         <Region prefHeight="27.0" prefWidth="34.0" HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" onAction="#handleClickDeletePlaylist" prefHeight="20.0" prefWidth="60.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />
+                        <Button mnemonicParsing="false" onAction="#handleClickPlaylistDelete" prefHeight="20.0" prefWidth="60.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />
                      </children>
                   </HBox>
                </children>
