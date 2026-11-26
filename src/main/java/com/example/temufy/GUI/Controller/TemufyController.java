@@ -427,7 +427,15 @@ public class TemufyController implements Initializable {
     }
     @FXML
     private void handleClickDeletePlaylist(){
+        Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
 
+        if (selectedPlaylist != null) {
+            try {
+                playlistModel.deletePlaylist(selectedPlaylist);
+            } catch (Exception err) {
+                displayError(err);
+            }
+        }
     }
 
     public void handleClickSongsEdit(ActionEvent actionEvent) {
