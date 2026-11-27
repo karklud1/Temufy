@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -76,18 +78,49 @@ public class TemufyController implements Initializable {
 
             searchSong();
             setupPlayer();
-
-            // Prevents reordering of columns
-            tblSong.getColumns().forEach(column -> column.setReorderable(false));
-            tblPlaylist.getColumns().forEach(column -> column.setReorderable(false));
-            tblSongsInPlaylist.getColumns().forEach(column -> column.setReorderable(false));
-
-            // Prevents resizing of columns
-            tblSong.getColumns().forEach(column -> column.setResizable(false));
-            tblPlaylist.getColumns().forEach(column -> column.setResizable(false));
-            tblSongsInPlaylist.getColumns().forEach(column -> column.setResizable(false));
-
         }
+
+        lockColumns(tblSong);
+        lockColumns(tblPlaylist);
+        lockColumns(tblSongsInPlaylist);
+    }
+
+    // Keeps each column at its start width, and eats a mouse drag that starts on a header
+    private void lockColumns(TableView<?> table) {
+        for (TableColumn<?, ?> column : table.getColumns()) {
+            column.setReorderable(false);
+            column.setResizable(false);
+            double width = column.getPrefWidth();
+            column.setMinWidth(width);
+            column.setMaxWidth(width);
+        }
+
+        // A user drag asks to resize one column. Layout passes null and may still fit the table.
+        table.setColumnResizePolicy(features -> {
+            if (features.getColumn() == null) {
+                return TableView.CONSTRAINED_RESIZE_POLICY.call(features);
+            }
+            return Boolean.FALSE;
+        });
+
+        table.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
+            if (isColumnHeader(event.getPickResult().getIntersectedNode(), table)) {
+                event.consume();
+            }
+        });
+    }
+
+    // True when the mouse is on a column title or the thin resize strip beside it
+    private boolean isColumnHeader(Node node, TableView<?> table) {
+        while (node != null && node != table) {
+            if (node.getStyleClass().contains("column-header")
+                    || node.getStyleClass().contains("column-header-background")
+                    || node.getStyleClass().contains("filler")) {
+                return true;
+            }
+            node = node.getParent();
+        }
+        return false;
     }
 
     private void searchSong(){
