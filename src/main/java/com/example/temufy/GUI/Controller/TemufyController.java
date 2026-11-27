@@ -34,7 +34,7 @@ public class TemufyController implements Initializable {
     @FXML
     private Slider sldSongProgress, sldVolume;
     @FXML
-    private Button btnPrevSong, btnPlayAndPause, btnNextSong, btnColSongsInPlaylistAdd, btnColSongsInPlaylistDelete, btnSongsNew, btnSongsEdit, btnSongsDelete, btnSongCreate, btnSongDelete, btnPlaylistNew, btnPlaylistEdit, btnPlaylistDelete, btnSearch, btnClear;
+    private Button btnPrevSong, btnPlayAndPause, btnNextSong, btnSearch;
     @FXML
     private TableView<Song> tblSong, tblSongsInPlaylist;
     @FXML

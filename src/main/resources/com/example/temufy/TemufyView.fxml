@@ -160,8 +160,8 @@
             <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="200.0" spacing="8.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handleClickSongsCreate" prefHeight="20.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="New" />
-                  <Button mnemonicParsing="false" onAction="#handleClickSongsEdit" prefHeight="20.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Edit" />
-                  <Region prefHeight="25.0" prefWidth="247.0" />
+                  <Button mnemonicParsing="false" onAction="#handleClickSongsEdit" prefHeight="26.0" prefWidth="51.0" style="-fx-background-color: #222226; -fx-text-fill: #F2F2F3; -fx-background-radius: 8;" text="Edit" />
+                  <Region prefHeight="26.0" prefWidth="110.0" />
                   <Button mnemonicParsing="false" onAction="#handleClickSongsDelete" prefHeight="20.0" prefWidth="54.0" style="-fx-background-color: #261518; -fx-text-fill: #FF5C6C; -fx-background-radius: 8;" text="Delete" />
                </children>
             </HBox>
