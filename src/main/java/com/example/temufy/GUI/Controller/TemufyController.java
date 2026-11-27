@@ -94,33 +94,6 @@ public class TemufyController implements Initializable {
             column.setMinWidth(width);
             column.setMaxWidth(width);
         }
-
-        // A user drag asks to resize one column. Layout passes null and may still fit the table.
-        table.setColumnResizePolicy(features -> {
-            if (features.getColumn() == null) {
-                return TableView.CONSTRAINED_RESIZE_POLICY.call(features);
-            }
-            return Boolean.FALSE;
-        });
-
-        table.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
-            if (isColumnHeader(event.getPickResult().getIntersectedNode(), table)) {
-                event.consume();
-            }
-        });
-    }
-
-    // True when the mouse is on a column title or the thin resize strip beside it
-    private boolean isColumnHeader(Node node, TableView<?> table) {
-        while (node != null && node != table) {
-            if (node.getStyleClass().contains("column-header")
-                    || node.getStyleClass().contains("column-header-background")
-                    || node.getStyleClass().contains("filler")) {
-                return true;
-            }
-            node = node.getParent();
-        }
-        return false;
     }
 
     private void searchSong(){
