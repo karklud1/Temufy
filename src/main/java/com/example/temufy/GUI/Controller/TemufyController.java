@@ -296,18 +296,25 @@ public class TemufyController implements Initializable {
         stage.show();
     }
      // Deletes selected song
-    @FXML
-    private void handleClickSongsDelete(ActionEvent actionEvent) throws Exception {
-        Song selectedSong = tblSong.getSelectionModel().getSelectedItem();
+     @FXML
+     private void handleClickSongsDelete(ActionEvent actionEvent) throws Exception {
+         Song selectedSong = tblSong.getSelectionModel().getSelectedItem();
 
-        if (selectedSong != null) {
-            try {
-                songModel.deleteSong(selectedSong);
-            } catch (Exception err) {
-                displayError(err);
-            }
-        }
-    }
+         if (selectedSong == null) {
+             displayError(new Exception("Please select a song to delete."));
+             return;
+         }
+
+         if (!confirmDelete("Delete the song \"" + selectedSong.getTitle() + "\"?")) {
+             return;
+         }
+
+         try {
+             songModel.deleteSong(selectedSong);
+         } catch (Exception err) {
+             displayError(err);
+         }
+     }
 
     @FXML
     private void handleClickSearch(ActionEvent actionEvent) throws Exception{
@@ -422,15 +429,22 @@ public class TemufyController implements Initializable {
     }
 
     @FXML
-    private void handleClickPlaylistDelete(){
+    private void handleClickPlaylistDelete() {
         Playlist selectedPlaylist = tblPlaylist.getSelectionModel().getSelectedItem();
 
-        if (selectedPlaylist != null) {
-            try {
-                playlistModel.deletePlaylist(selectedPlaylist);
-            } catch (Exception err) {
-                displayError(err);
-            }
+        if (selectedPlaylist == null) {
+            displayError(new Exception("Please select a playlist to delete."));
+            return;
+        }
+
+        if (!confirmDelete("Delete the playlist \"" + selectedPlaylist.getName() + "\"?")) {
+            return;
+        }
+
+        try {
+            playlistModel.deletePlaylist(selectedPlaylist);
+        } catch (Exception err) {
+            displayError(err);
         }
     }
 
@@ -476,5 +490,15 @@ public class TemufyController implements Initializable {
         stage.setTitle("Edit playlist");
         stage.setScene(scene);
         stage.show();
+    }
+
+    // Asks the user to confirm. Returns true only if they press OK.
+    private boolean confirmDelete(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm delete");
+        alert.setHeaderText(message);
+        alert.setContentText("This cannot be undone.");
+
+        return alert.showAndWait().filter(button -> button == ButtonType.OK).isPresent();
     }
 }
