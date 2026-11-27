@@ -37,4 +37,10 @@ public class Playlist {
         int seconds = totalSeconds % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
+    public void setNumberOfSongs(int numberOfSongs){
+        this.numberOfSongs = numberOfSongs;
+    }
+    public void setTotalTime(double totalTime){
+        this.totalTime = totalTime;
+    }
 }

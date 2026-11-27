@@ -33,6 +33,9 @@ public class PlaylistModel {
         songsInPlaylist.clear();
         if (playlist != null) {
             songsInPlaylist.addAll(playlistManager.getSongsForPlaylist(playlist.getId()));
+
+            playlist.setNumberOfSongs(songsInPlaylist.size());
+            playlist.setTotalTime(songsInPlaylist.stream().mapToDouble(Song::getTime).sum());
         }
     }
 
@@ -49,5 +52,8 @@ public class PlaylistModel {
     public void deletePlaylist(Playlist playlistToBeDeleted) throws Exception {
         playlistManager.deletePlaylist(playlistToBeDeleted);
         playlistsToBeViewed.remove(playlistToBeDeleted);
+    }
+    public void refreshPlaylist() throws Exception{
+        playlistsToBeViewed.setAll(playlistManager.getAllPlaylists());
     }
 }

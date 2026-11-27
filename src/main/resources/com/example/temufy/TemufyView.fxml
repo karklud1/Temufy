@@ -58,8 +58,8 @@
                     <TableView fx:id="tblPlaylist" prefHeight="400.0" prefWidth="270.0">
                         <columns>
                             <TableColumn fx:id="colPlaylistName" prefWidth="98.4000244140625" text="Name" />
-                            <TableColumn fx:id="colPlaylistSongs" prefWidth="92.00003051757812" text="Songs" />
-                        <TableColumn fx:id="colPlaylistTime" prefWidth="75.0" text="Time" />
+                            <TableColumn fx:id="colPlaylistSongs" prefWidth="70.40003204345703" text="Songs" />
+                        <TableColumn fx:id="colPlaylistTime" prefWidth="71.19996643066406" text="Time" />
                         </columns>
                         <columnResizePolicy>
                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -91,15 +91,15 @@
                   <Insets left="14.0" right="14.0" />
                </HBox.margin>
             </VBox>
-            <VBox prefWidth="280.0" spacing="12.0" style="-fx-background-color: #161619; -fx-background-radius: 12; -fx-border-color: #28282D; -fx-border-radius: 12;">
+            <VBox prefHeight="500.0" prefWidth="328.0" spacing="12.0" style="-fx-background-color: #161619; -fx-background-radius: 12; -fx-border-color: #28282D; -fx-border-radius: 12;">
                <children>
                   <Label style="-fx-text-fill: #E5B84B; -fx-font-size: 11px; -fx-font-weight: bold;" text="SONGS IN PLAYLIST" />
-                  <TableView fx:id="tblSongsInPlayllist" prefHeight="400.0" prefWidth="280.0">
+                  <TableView fx:id="tblSongsInPlaylist" prefHeight="400.0" prefWidth="280.0">
                     <columns>
-                      <TableColumn fx:id="colSongsInPlayllisttitle" prefWidth="75.0" text="Title" />
-                      <TableColumn fx:id="colSongsInPlayllistArtist" prefWidth="75.0" text="Artist" />
-                        <TableColumn fx:id="colSongsInPlayllistGenre" prefWidth="75.0" text="Genre" />
-                        <TableColumn fx:id="colSongsInPlayllistTime" prefWidth="75.0" text="Time" />
+                      <TableColumn fx:id="colSongsInPlaylistTitle" prefWidth="75.0" text="Title" />
+                      <TableColumn fx:id="colSongsInPlaylistArtist" prefWidth="75.0" text="Artist" />
+                        <TableColumn fx:id="colSongsInPlaylistGenre" prefWidth="75.0" text="Genre" />
+                        <TableColumn fx:id="colSongsInPlaylistTime" prefWidth="75.0" text="Time" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -129,24 +129,24 @@
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
       </HBox>
-      <Button layoutX="658.0" layoutY="469.0" mnemonicParsing="false" onAction="#handleClickSongsInPlaylistAdd" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-color: #28282D; -fx-border-radius: 8;" text="←" AnchorPane.leftAnchor="658.0" AnchorPane.rightAnchor="495.0">
+      <Button layoutX="718.0" layoutY="468.0" mnemonicParsing="false" onAction="#handleClickSongsInPlaylistAdd" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #222226; -fx-text-fill: #E5B84B; -fx-font-weight: bold; -fx-background-radius: 8; -fx-border-color: #28282D; -fx-border-radius: 8;" text="←" AnchorPane.leftAnchor="718.0" AnchorPane.rightAnchor="435.5999999999999">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <VBox layoutX="913.0" layoutY="240.0" prefHeight="500.0" prefWidth="458.0" spacing="12.0" style="-fx-background-color: #161619; -fx-background-radius: 12; -fx-border-color: #28282D; -fx-border-radius: 12;" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <VBox layoutX="790.0" layoutY="241.0" prefHeight="500.0" prefWidth="328.0" spacing="12.0" style="-fx-background-color: #161619; -fx-background-radius: 12; -fx-border-color: #28282D; -fx-border-radius: 12;" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="82.0">
          <padding>
             <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
          </padding>
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="21.0" prefWidth="424.0">
                <children>
-                  <Label style="-fx-text-fill: #E5B84B; -fx-font-size: 11px; -fx-font-weight: bold;" text="ALL SONGS" />
-                  <Region prefHeight="0.0" prefWidth="315.0" HBox.hgrow="ALWAYS" />
-                  <Label fx:id="lblTotalSongs" style="-fx-text-fill: #8E8E98; -fx-font-size: 12px;" text="20 Songs" />
+                  <Label prefHeight="16.0" prefWidth="63.0" style="-fx-text-fill: #E5B84B; -fx-font-size: 11px; -fx-font-weight: bold;" text="ALL SONGS" />
+                  <Region prefHeight="20.0" prefWidth="159.0" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lblTotalSongs" prefHeight="18.0" prefWidth="56.0" style="-fx-text-fill: #8E8E98; -fx-font-size: 12px;" text="20 Songs" />
                </children>
             </HBox>
-            <TableView fx:id="tblSong" prefHeight="400.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tblSong" prefHeight="398.0" prefWidth="298.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn fx:id="colSongtitle" prefWidth="75.0" text="Title" />
                 <TableColumn fx:id="colSongArtist" prefWidth="75.0" text="Artist" />
